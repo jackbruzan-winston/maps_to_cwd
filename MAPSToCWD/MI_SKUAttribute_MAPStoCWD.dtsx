@@ -12,8 +12,8 @@
   DTS:ObjectName="MI_SKUAttribute_MAPStoCWD"
   DTS:PackageType="5"
   DTS:ProtectionLevel="0"
-  DTS:VersionBuild="118"
-  DTS:VersionGUID="{E7CC11BB-C0A2-417A-B9AB-8C4F6EA459BB}">
+  DTS:VersionBuild="121"
+  DTS:VersionGUID="{EBA40FB4-8C19-4DE3-BDDF-82AA860DAB62}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">6</DTS:Property>
   <DTS:ConnectionManagers>
@@ -107,6 +107,24 @@
       <DTS:Property
         DTS:DataType="8"
         DTS:Name="ParameterValue">EIJBRUZAN</DTS:Property>
+    </DTS:PackageParameter>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:DTSID="{40C047AA-FE10-43CF-A1CA-FFE8BA0A6B39}"
+      DTS:ObjectName="CWD_SourceLibrary">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">CWMUDTA</DTS:Property>
+    </DTS:PackageParameter>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:DTSID="{13C3D975-A8C6-4A87-BF73-4CEAA5559C37}"
+      DTS:ObjectName="CWD_SourceLibraryX">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">COLLTDATA</DTS:Property>
     </DTS:PackageParameter>
     <DTS:PackageParameter
       DTS:CreationName=""
@@ -267,25 +285,135 @@ WHEN NOT MATCHED THEN
     </DTS:Variable>
     <DTS:Variable
       DTS:CreationName=""
+      DTS:DTSID="{5FB5C221-BDBA-412F-BE1F-097E38B6E759}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="&quot;CREATE TABLE &quot; + @[$Package::CWD_TempLibrary] + &quot;.temp_INSKEO  like &quot; + @[$Package::CWD_SourceLibrary] + &quot;.INSKEO&quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Query_CreateTemp_INSKEO">
+      <DTS:VariableValue
+        DTS:DataType="8">CREATE TABLE COLLTDATA.temp_INSKEO  like CWMUDTA.INSKEO</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{B54267B9-9A0B-494C-9591-EBE8D385F64A}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="&quot;CREATE TABLE &quot; + @[$Package::CWD_TempLibrary] + &quot;.temp_INSKEOX  like &quot; + @[$Package::CWD_SourceLibraryX] + &quot;.INSKEOX&quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Query_CreateTemp_INSKEOX">
+      <DTS:VariableValue
+        DTS:DataType="8">CREATE TABLE COLLTDATA.temp_INSKEOX  like COLLTDATA.INSKEOX</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
       DTS:DTSID="{7C3D3FDD-DE3E-4BBA-B841-FDF49FF6D5DF}"
       DTS:EvaluateAsExpression="True"
-      DTS:Expression="&quot;CREATE TABLE &quot; + @[$Package::CWD_TempLibrary] + &quot;.temp_INSKET  like &quot; + @[$Package::CWD_DestinationLibrary] + &quot;.INSKET&quot;"
+      DTS:Expression="&quot;CREATE TABLE &quot; + @[$Package::CWD_TempLibrary] + &quot;.temp_INSKET  like &quot; + @[$Package::CWD_SourceLibrary] + &quot;.INSKET&quot;"
       DTS:IncludeInDebugDump="2345"
       DTS:Namespace="User"
       DTS:ObjectName="Query_CreateTemp_INSKET">
       <DTS:VariableValue
-        DTS:DataType="8">CREATE TABLE COLLTDATA.temp_INSKET  like EIJBRUZAN.INSKET</DTS:VariableValue>
+        DTS:DataType="8">CREATE TABLE COLLTDATA.temp_INSKET  like CWMUDTA.INSKET</DTS:VariableValue>
     </DTS:Variable>
     <DTS:Variable
       DTS:CreationName=""
       DTS:DTSID="{E584A43B-8BC6-4C5C-A27D-F075DEE9E3B3}"
       DTS:EvaluateAsExpression="True"
-      DTS:Expression="&quot;CREATE TABLE &quot; +  @[$Package::CWD_TempLibrary] + &quot;.temp_INSKETX LIKE &quot; +  @[$Package::CWD_DestinationLibraryX] + &quot;.INSKETX&quot;"
+      DTS:Expression="&quot;CREATE TABLE &quot; +  @[$Package::CWD_TempLibrary] + &quot;.temp_INSKETX LIKE &quot; +  @[$Package::CWD_SourceLibraryX] + &quot;.INSKETX&quot;"
       DTS:IncludeInDebugDump="2345"
       DTS:Namespace="User"
       DTS:ObjectName="Query_CreateTemp_INSKETX">
       <DTS:VariableValue
-        DTS:DataType="8">CREATE TABLE COLLTDATA.temp_INSKETX LIKE EIJBRUZAN.INSKETX</DTS:VariableValue>
+        DTS:DataType="8">CREATE TABLE COLLTDATA.temp_INSKETX LIKE COLLTDATA.INSKETX</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{7D0EA687-C38F-4AF3-9D8B-88ACA8918170}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="&quot;CREATE TABLE &quot; + @[$Package::CWD_TempLibrary] + &quot;.temp_INSKEW  like &quot; + @[$Package::CWD_SourceLibrary] + &quot;.INSKEW&quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Query_CreateTemp_INSKEW">
+      <DTS:VariableValue
+        DTS:DataType="8">CREATE TABLE COLLTDATA.temp_INSKEW  like CWMUDTA.INSKEW</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{8405A1F2-C593-4FDB-9482-204D50BFF48F}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="&quot;CREATE TABLE &quot; + @[$Package::CWD_TempLibrary] + &quot;.temp_INSKEWX like &quot; + @[$Package::CWD_SourceLibraryX] + &quot;.INSKEWX&quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Query_CreateTemp_INSKEWX">
+      <DTS:VariableValue
+        DTS:DataType="8">CREATE TABLE COLLTDATA.temp_INSKEWX like COLLTDATA.INSKEWX</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{1BC466E0-B4DF-4397-8557-8B3F3FD7C927}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="&quot;DROP TABLE &quot; +  @[$Package::CWD_TempLibrary] + &quot;.temp_INSKEO IF EXISTS&quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Query_DropTable_INSKEO">
+      <DTS:VariableValue
+        DTS:DataType="8">DROP TABLE COLLTDATA.temp_INSKEO IF EXISTS</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{21805D50-6ADA-4993-A897-46E7EEFCC95E}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="&quot;DROP TABLE &quot; +  @[$Package::CWD_TempLibrary] + &quot;.temp_INSKEOX IF EXISTS&quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Query_DropTable_INSKEOX">
+      <DTS:VariableValue
+        DTS:DataType="8">DROP TABLE COLLTDATA.temp_INSKEOX IF EXISTS</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{01464D14-07EF-4C48-AC22-00F2433B11AA}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="&quot;DROP TABLE &quot; +  @[$Package::CWD_TempLibrary] + &quot;.temp_INSKET IF EXISTS&quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Query_DropTable_INSKET">
+      <DTS:VariableValue
+        DTS:DataType="8">DROP TABLE COLLTDATA.temp_INSKET IF EXISTS</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{C7018787-10C1-4988-9466-54003BAC5C2D}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="&quot;DROP TABLE &quot; +  @[$Package::CWD_TempLibrary] + &quot;.temp_INSKETX IF EXISTS&quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Query_DropTable_INSKETX">
+      <DTS:VariableValue
+        DTS:DataType="8">DROP TABLE COLLTDATA.temp_INSKETX IF EXISTS</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{78E38920-CD6B-4518-BCCA-42317245AC1C}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="&quot;DROP TABLE &quot; +  @[$Package::CWD_TempLibrary] + &quot;.temp_INSKEW IF EXISTS&quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Query_DropTable_INSKEW">
+      <DTS:VariableValue
+        DTS:DataType="8">DROP TABLE COLLTDATA.temp_INSKEW IF EXISTS</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{9D221AE7-15AA-4418-B747-44DA8807FB40}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="&quot;DROP TABLE &quot; +  @[$Package::CWD_TempLibrary] + &quot;.temp_INSKEWX IF EXISTS&quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Query_DropTable_INSKEWX">
+      <DTS:VariableValue
+        DTS:DataType="8">DROP TABLE COLLTDATA.temp_INSKEWX IF EXISTS</DTS:VariableValue>
     </DTS:Variable>
   </DTS:Variables>
   <DTS:Executables>
@@ -347,7 +475,8 @@ WHEN NOT MATCHED THEN
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
               SQLTask:Connection="{7D92FDC8-3950-44F3-9631-8EF724AEBF5B}"
-              SQLTask:SqlStatementSource="DROP TABLE colltdata.temp_INSKEW&#xA;IF EXISTS&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+              SQLTask:SqlStmtSourceType="Variable"
+              SQLTask:SqlStatementSource="User::Query_DropTable_INSKEW" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
           </DTS:ObjectData>
         </DTS:Executable>
         <DTS:Executable
@@ -364,7 +493,8 @@ WHEN NOT MATCHED THEN
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
               SQLTask:Connection="{7D92FDC8-3950-44F3-9631-8EF724AEBF5B}"
-              SQLTask:SqlStatementSource="DROP TABLE colltdata.temp_INSKEW&#xA;IF EXISTS&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+              SQLTask:SqlStmtSourceType="Variable"
+              SQLTask:SqlStatementSource="User::Query_DropTable_INSKEW" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
           </DTS:ObjectData>
         </DTS:Executable>
         <DTS:Executable
@@ -381,7 +511,8 @@ WHEN NOT MATCHED THEN
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
               SQLTask:Connection="{7D92FDC8-3950-44F3-9631-8EF724AEBF5B}"
-              SQLTask:SqlStatementSource="DROP TABLE colltdata.temp_INSKEWX&#xA;IF EXISTS&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+              SQLTask:SqlStmtSourceType="Variable"
+              SQLTask:SqlStatementSource="User::Query_DropTable_INSKEWX" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
           </DTS:ObjectData>
         </DTS:Executable>
         <DTS:Executable
@@ -398,7 +529,8 @@ WHEN NOT MATCHED THEN
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
               SQLTask:Connection="{7D92FDC8-3950-44F3-9631-8EF724AEBF5B}"
-              SQLTask:SqlStatementSource="DROP TABLE colltdata.temp_insket&#xA;IF EXISTS&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+              SQLTask:SqlStmtSourceType="Variable"
+              SQLTask:SqlStatementSource="User::Query_DropTable_INSKEWX" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
           </DTS:ObjectData>
         </DTS:Executable>
         <DTS:Executable
@@ -1206,7 +1338,8 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
               SQLTask:Connection="{7D92FDC8-3950-44F3-9631-8EF724AEBF5B}"
-              SQLTask:SqlStatementSource="DROP TABLE colltdata.temp_INSKEO&#xA;IF EXISTS&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+              SQLTask:SqlStmtSourceType="Variable"
+              SQLTask:SqlStatementSource="User::Query_DropTable_INSKEO" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
           </DTS:ObjectData>
         </DTS:Executable>
         <DTS:Executable
@@ -1223,7 +1356,8 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
               SQLTask:Connection="{7D92FDC8-3950-44F3-9631-8EF724AEBF5B}"
-              SQLTask:SqlStatementSource="DROP TABLE colltdata.temp_INSKEO&#xA;IF EXISTS&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+              SQLTask:SqlStmtSourceType="Variable"
+              SQLTask:SqlStatementSource="User::Query_DropTable_INSKEO" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
           </DTS:ObjectData>
         </DTS:Executable>
         <DTS:Executable
@@ -1240,7 +1374,8 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
               SQLTask:Connection="{7D92FDC8-3950-44F3-9631-8EF724AEBF5B}"
-              SQLTask:SqlStatementSource="DROP TABLE colltdata.temp_INSKEOX&#xA;IF EXISTS&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+              SQLTask:SqlStmtSourceType="Variable"
+              SQLTask:SqlStatementSource="User::Query_DropTable_INSKEOX" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
           </DTS:ObjectData>
         </DTS:Executable>
         <DTS:Executable
@@ -1257,7 +1392,8 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
               SQLTask:Connection="{7D92FDC8-3950-44F3-9631-8EF724AEBF5B}"
-              SQLTask:SqlStatementSource="DROP TABLE colltdata.temp_INSKEOX&#xA;IF EXISTS&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+              SQLTask:SqlStmtSourceType="Variable"
+              SQLTask:SqlStatementSource="User::Query_DropTable_INSKEOX" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
           </DTS:ObjectData>
         </DTS:Executable>
         <DTS:Executable
@@ -2064,7 +2200,8 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
               SQLTask:Connection="{7D92FDC8-3950-44F3-9631-8EF724AEBF5B}"
-              SQLTask:SqlStatementSource="DROP TABLE colltdata.temp_insket&#xA;IF EXISTS&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+              SQLTask:SqlStmtSourceType="Variable"
+              SQLTask:SqlStatementSource="User::Query_DropTable_INSKET" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
           </DTS:ObjectData>
         </DTS:Executable>
         <DTS:Executable
@@ -2081,7 +2218,8 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
               SQLTask:Connection="{7D92FDC8-3950-44F3-9631-8EF724AEBF5B}"
-              SQLTask:SqlStatementSource="DROP TABLE colltdata.temp_insket&#xA;IF EXISTS&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+              SQLTask:SqlStmtSourceType="Variable"
+              SQLTask:SqlStatementSource="User::Query_DropTable_INSKET" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
           </DTS:ObjectData>
         </DTS:Executable>
         <DTS:Executable
@@ -2098,7 +2236,8 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
               SQLTask:Connection="{7D92FDC8-3950-44F3-9631-8EF724AEBF5B}"
-              SQLTask:SqlStatementSource="DROP TABLE colltdata.temp_INSKETX&#xA;IF EXISTS&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+              SQLTask:SqlStmtSourceType="Variable"
+              SQLTask:SqlStatementSource="User::Query_DropTable_INSKETX" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
           </DTS:ObjectData>
         </DTS:Executable>
         <DTS:Executable
@@ -2115,7 +2254,8 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
               SQLTask:Connection="{7D92FDC8-3950-44F3-9631-8EF724AEBF5B}"
-              SQLTask:SqlStatementSource="DROP TABLE colltdata.temp_INSKETX&#xA;IF EXISTS&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+              SQLTask:SqlStmtSourceType="Variable"
+              SQLTask:SqlStatementSource="User::Query_DropTable_INSKETX" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
           </DTS:ObjectData>
         </DTS:Executable>
         <DTS:Executable
@@ -3994,7 +4134,7 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
     design-time-name="Package\SkuSize\LOAD TO INSKET TEMP">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="157,42"
           Id="Package\SkuSize\LOAD TO INSKET TEMP\OLE DB Source"
@@ -4022,16 +4162,14 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <AnnotationLayout
           Text="Truncate the skusize column to 10 characters&#xA;"
           ParentId="Package\SkuSize\LOAD TO INSKET TEMP"
           FontInfo="{assembly:Null}"
-          Size="200,NaN"
+          Size="200,72"
           Id="61a1b2e6-45fb-4902-b95d-2337f662176a"
           TopLeft="465,259.5" />
       </GraphLayout>
