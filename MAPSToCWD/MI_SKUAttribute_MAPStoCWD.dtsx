@@ -12,8 +12,8 @@
   DTS:ObjectName="MI_SKUAttribute_MAPStoCWD"
   DTS:PackageType="5"
   DTS:ProtectionLevel="0"
-  DTS:VersionBuild="117"
-  DTS:VersionGUID="{D364BE42-4FD2-471F-92EE-14B8A84B6FFF}">
+  DTS:VersionBuild="118"
+  DTS:VersionGUID="{E7CC11BB-C0A2-417A-B9AB-8C4F6EA459BB}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">6</DTS:Property>
   <DTS:ConnectionManagers>
@@ -275,6 +275,17 @@ WHEN NOT MATCHED THEN
       DTS:ObjectName="Query_CreateTemp_INSKET">
       <DTS:VariableValue
         DTS:DataType="8">CREATE TABLE COLLTDATA.temp_INSKET  like EIJBRUZAN.INSKET</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{E584A43B-8BC6-4C5C-A27D-F075DEE9E3B3}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="&quot;CREATE TABLE &quot; +  @[$Package::CWD_TempLibrary] + &quot;.temp_INSKETX LIKE &quot; +  @[$Package::CWD_DestinationLibraryX] + &quot;.INSKETX&quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Query_CreateTemp_INSKETX">
+      <DTS:VariableValue
+        DTS:DataType="8">CREATE TABLE COLLTDATA.temp_INSKETX LIKE EIJBRUZAN.INSKETX</DTS:VariableValue>
     </DTS:Variable>
   </DTS:Variables>
   <DTS:Executables>
