@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
   DTS:refId="Package"
   DTS:CreationDate="3/30/2021 2:48:14 PM"
@@ -12,8 +12,8 @@
   DTS:ObjectName="MI_SKUAttribute_MAPStoCWD"
   DTS:PackageType="5"
   DTS:ProtectionLevel="0"
-  DTS:VersionBuild="114"
-  DTS:VersionGUID="{FE52CBA4-8874-4A7E-8C91-CBA74C8BE6A4}">
+  DTS:VersionBuild="117"
+  DTS:VersionGUID="{D364BE42-4FD2-471F-92EE-14B8A84B6FFF}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">6</DTS:Property>
   <DTS:ConnectionManagers>
@@ -34,7 +34,11 @@
         DTS:Name="UserName">@[$Project::CWD_UserID]</DTS:PropertyExpression>
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="Data Source=CWDDVUAT;User ID=iadminuat;Initial Catalog=CWDDVUAT;Provider=IBMDASQL.DataSource.1;Persist Security Info=True;" />
+          DTS:ConnectionString="Data Source=CWDDVUAT;User ID=iadminuat;Initial Catalog=CWDDVUAT;Provider=IBMDASQL.DataSource.1;Persist Security Info=True;">
+          <DTS:Password
+            DTS:Name="Password"
+            Sensitive="1"></DTS:Password>
+        </DTS:ConnectionManager>
       </DTS:ObjectData>
     </DTS:ConnectionManager>
     <DTS:ConnectionManager
@@ -54,7 +58,11 @@
         DTS:Name="UserName">@[$Project::MAPSDB_UserID]</DTS:PropertyExpression>
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="Data Source=Host100;User ID=iadminuat;Initial Catalog=MAPS_UAT;Provider=SQLOLEDB.1;Application Name=SSIS-MI_SKUAttribute_MAPStoCWD-{52A4C281-AFB4-477E-AF1D-BAD2FC6DF67B}MAPS OLE;" />
+          DTS:ConnectionString="Data Source=Host100;User ID=iadminuat;Initial Catalog=MAPS_UAT;Provider=SQLOLEDB.1;Application Name=SSIS-MI_SKUAttribute_MAPStoCWD-{52A4C281-AFB4-477E-AF1D-BAD2FC6DF67B}MAPS OLE;">
+          <DTS:Password
+            DTS:Name="Password"
+            Sensitive="1"></DTS:Password>
+        </DTS:ConnectionManager>
       </DTS:ObjectData>
     </DTS:ConnectionManager>
     <DTS:ConnectionManager
@@ -257,6 +265,17 @@ WHEN NOT MATCHED THEN
         DTS:DataType="8"
         xml:space="preserve"></DTS:VariableValue>
     </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{7C3D3FDD-DE3E-4BBA-B841-FDF49FF6D5DF}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="&quot;CREATE TABLE &quot; + @[$Package::CWD_TempLibrary] + &quot;.temp_INSKET  like &quot; + @[$Package::CWD_DestinationLibrary] + &quot;.INSKET&quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Query_CreateTemp_INSKET">
+      <DTS:VariableValue
+        DTS:DataType="8">CREATE TABLE COLLTDATA.temp_INSKET  like EIJBRUZAN.INSKET</DTS:VariableValue>
+    </DTS:Variable>
   </DTS:Variables>
   <DTS:Executables>
     <DTS:Executable
@@ -278,7 +297,7 @@ WHEN NOT MATCHED THEN
           DTS:LocaleID="-1"
           DTS:ObjectName="CREATE INSKEW TEMP TABLE"
           DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-          DTS:ThreadHint="0">
+          DTS:ThreadHint="1">
           <DTS:Variables />
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
@@ -295,7 +314,7 @@ WHEN NOT MATCHED THEN
           DTS:LocaleID="-1"
           DTS:ObjectName="CREATE TEMP INSKEWX"
           DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-          DTS:ThreadHint="1">
+          DTS:ThreadHint="0">
           <DTS:Variables />
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
@@ -312,7 +331,7 @@ WHEN NOT MATCHED THEN
           DTS:LocaleID="-1"
           DTS:ObjectName="DROP TEMP INSKEW (SkuColor)"
           DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-          DTS:ThreadHint="0">
+          DTS:ThreadHint="1">
           <DTS:Variables />
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
@@ -329,7 +348,7 @@ WHEN NOT MATCHED THEN
           DTS:LocaleID="-1"
           DTS:ObjectName="DROP TEMP INSKEW ON SUCCESS"
           DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-          DTS:ThreadHint="0">
+          DTS:ThreadHint="1">
           <DTS:Variables />
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
@@ -346,7 +365,7 @@ WHEN NOT MATCHED THEN
           DTS:LocaleID="-1"
           DTS:ObjectName="DROP TEMP INSKEWX (SkuColor)"
           DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-          DTS:ThreadHint="1">
+          DTS:ThreadHint="0">
           <DTS:Variables />
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
@@ -363,7 +382,7 @@ WHEN NOT MATCHED THEN
           DTS:LocaleID="-1"
           DTS:ObjectName="DROP TEMP INSKEWX ON SUCCESS"
           DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-          DTS:ThreadHint="1">
+          DTS:ThreadHint="0">
           <DTS:Variables />
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
@@ -970,7 +989,7 @@ FROM [SkuColor]</property>
           DTS:LocaleID="-1"
           DTS:ObjectName="UPSERT INTO INSKEW"
           DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-          DTS:ThreadHint="0">
+          DTS:ThreadHint="1">
           <DTS:Variables />
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
@@ -988,7 +1007,7 @@ FROM [SkuColor]</property>
           DTS:LocaleID="-1"
           DTS:ObjectName="UPSERT INTO INSKEWX"
           DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-          DTS:ThreadHint="1">
+          DTS:ThreadHint="0">
           <DTS:Variables />
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
@@ -1987,13 +2006,13 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
       <DTS:Variables />
       <DTS:Executables>
         <DTS:Executable
-          DTS:refId="Package\SkuSize\CREATE TEMP INSKET TABLE"
+          DTS:refId="Package\SkuSize\CREATE TEMP INSKET"
           DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
           DTS:Description="Execute SQL Task"
           DTS:DTSID="{62e1568b-1c38-45bd-b35c-3065cc68312b}"
           DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
           DTS:LocaleID="-1"
-          DTS:ObjectName="CREATE TEMP INSKET TABLE"
+          DTS:ObjectName="CREATE TEMP INSKET"
           DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
           DTS:ThreadHint="0">
           <DTS:Variables />
@@ -2722,7 +2741,7 @@ FROM [SkuSize]</property>
           DTS:From="Package\SkuSize\DROP TEMP INSKET (SkuSize)"
           DTS:LogicalAnd="True"
           DTS:ObjectName="Constraint"
-          DTS:To="Package\SkuSize\CREATE TEMP INSKET TABLE" />
+          DTS:To="Package\SkuSize\CREATE TEMP INSKET" />
         <DTS:PrecedenceConstraint
           DTS:refId="Package\SkuSize.PrecedenceConstraints[Constraint 1]"
           DTS:CreationName=""
@@ -2767,7 +2786,7 @@ FROM [SkuSize]</property>
           DTS:refId="Package\SkuSize.PrecedenceConstraints[Constraint 6]"
           DTS:CreationName=""
           DTS:DTSID="{C7253FB5-E47C-475F-BB33-92D018C87BE0}"
-          DTS:From="Package\SkuSize\CREATE TEMP INSKET TABLE"
+          DTS:From="Package\SkuSize\CREATE TEMP INSKET"
           DTS:LogicalAnd="True"
           DTS:ObjectName="Constraint 6"
           DTS:To="Package\SkuSize\LOAD TO INSKET TEMP" />
@@ -3367,8 +3386,8 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
           Id="Package\SkuDesign"
           TopLeft="80.5,676" />
         <NodeLayout
-          Size="238,42"
-          Id="Package\SkuSize\CREATE TEMP INSKET TABLE"
+          Size="200,42"
+          Id="Package\SkuSize\CREATE TEMP INSKET"
           TopLeft="36.5,97.3125" />
         <NodeLayout
           Size="207,42"
@@ -3412,14 +3431,26 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,28.8125000000002"
+              EndConnector="-19,28.8125000000002"
               Start="0,0"
-              End="0,21.3125000000002">
+              End="-19,21.3125000000002">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,21.3125000000002" />
+                    End="0,10.4062500000001" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,10.4062500000001"
+                    Point2="0,14.4062500000001"
+                    Point3="-4,14.4062500000001" />
+                  <mssgle:LineSegment
+                    End="-15,14.4062500000001" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-15,14.4062500000001"
+                    Point2="-19,14.4062500000001"
+                    Point3="-19,18.4062500000001" />
+                  <mssgle:LineSegment
+                    End="-19,21.3125000000002" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -3540,18 +3571,30 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\SkuSize.PrecedenceConstraints[Constraint 6]"
-          TopLeft="155,139.3125">
+          TopLeft="136.5,139.3125">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,28.812499999999"
+              EndConnector="18,28.812499999999"
               Start="0,0"
-              End="0,21.312499999999">
+              End="18,21.312499999999">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,21.312499999999" />
+                    End="0,10.4062499999995" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,10.4062499999995"
+                    Point2="0,14.4062499999995"
+                    Point3="4,14.4062499999995" />
+                  <mssgle:LineSegment
+                    End="14,14.4062499999995" />
+                  <mssgle:CubicBezierSegment
+                    Point1="14,14.4062499999995"
+                    Point2="18,14.4062499999995"
+                    Point3="18,18.4062499999995" />
+                  <mssgle:LineSegment
+                    End="18,21.312499999999" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -3585,8 +3628,8 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
         <ContainerLayout
           HeaderHeight="43"
           IsExpanded="True"
-          PanelSize="659,368"
-          Size="659,411"
+          PanelSize="659,407"
+          Size="659,450"
           Id="Package\SkuSize"
           TopLeft="50,207" />
         <EdgeLayout
