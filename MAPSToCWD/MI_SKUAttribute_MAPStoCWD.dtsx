@@ -12,8 +12,8 @@
   DTS:ObjectName="MI_SKUAttribute_MAPStoCWD"
   DTS:PackageType="5"
   DTS:ProtectionLevel="0"
-  DTS:VersionBuild="132"
-  DTS:VersionGUID="{6C51E7FF-8783-464C-BC69-888E2D1C47CA}">
+  DTS:VersionBuild="135"
+  DTS:VersionGUID="{40F18146-D90B-4E3D-984F-183EC2523EDC}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">6</DTS:Property>
   <DTS:ConnectionManagers>
@@ -1539,11 +1539,11 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
               version="1">
               <components>
                 <component
-                  refId="Package\SkuDesign\LOAD TO INSKEO TEMP\CWD INSKEO"
+                  refId="Package\SkuDesign\LOAD TO INSKEO TEMP\CWD temp_INSKEO"
                   componentClassID="DTSAdapter.OLEDBDestination.3"
                   contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
                   description="OLE DB Destination"
-                  name="CWD INSKEO"
+                  name="CWD temp_INSKEO"
                   usesDispositions="true"
                   validateExternalMetadata="False"
                   version="4">
@@ -1597,7 +1597,7 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
                   </properties>
                   <connections>
                     <connection
-                      refId="Package\SkuDesign\LOAD TO INSKEO TEMP\CWD INSKEO.Connections[OleDbConnection]"
+                      refId="Package\SkuDesign\LOAD TO INSKEO TEMP\CWD temp_INSKEO.Connections[OleDbConnection]"
                       connectionManagerID="Package.ConnectionManagers[CWD_OLE]"
                       connectionManagerRefId="Package.ConnectionManagers[CWD_OLE]"
                       description="The OLE DB runtime connection used to access the database."
@@ -1605,39 +1605,39 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
                   </connections>
                   <inputs>
                     <input
-                      refId="Package\SkuDesign\LOAD TO INSKEO TEMP\CWD INSKEO.Inputs[OLE DB Destination Input]"
+                      refId="Package\SkuDesign\LOAD TO INSKEO TEMP\CWD temp_INSKEO.Inputs[OLE DB Destination Input]"
                       errorOrTruncationOperation="Insert"
                       errorRowDisposition="FailComponent"
                       hasSideEffects="true"
                       name="OLE DB Destination Input">
                       <inputColumns>
                         <inputColumn
-                          refId="Package\SkuDesign\LOAD TO INSKEO TEMP\CWD INSKEO.Inputs[OLE DB Destination Input].Columns[CWDCode]"
+                          refId="Package\SkuDesign\LOAD TO INSKEO TEMP\CWD temp_INSKEO.Inputs[OLE DB Destination Input].Columns[CWDCode]"
                           cachedCodepage="1252"
                           cachedDataType="str"
                           cachedLength="4"
                           cachedName="CWDCode"
-                          externalMetadataColumnId="Package\SkuDesign\LOAD TO INSKEO TEMP\CWD INSKEO.Inputs[OLE DB Destination Input].ExternalColumns[B6GUCD]"
+                          externalMetadataColumnId="Package\SkuDesign\LOAD TO INSKEO TEMP\CWD temp_INSKEO.Inputs[OLE DB Destination Input].ExternalColumns[B6GUCD]"
                           lineageId="Package\SkuDesign\LOAD TO INSKEO TEMP\MAPS SkuDesign.Outputs[OLE DB Source Output].Columns[CWDCode]" />
                         <inputColumn
-                          refId="Package\SkuDesign\LOAD TO INSKEO TEMP\CWD INSKEO.Inputs[OLE DB Destination Input].Columns[TruncatedSkuDesign]"
+                          refId="Package\SkuDesign\LOAD TO INSKEO TEMP\CWD temp_INSKEO.Inputs[OLE DB Destination Input].Columns[TruncatedSkuDesign]"
                           cachedCodepage="1252"
                           cachedDataType="str"
                           cachedLength="10"
                           cachedName="TruncatedSkuDesign"
-                          externalMetadataColumnId="Package\SkuDesign\LOAD TO INSKEO TEMP\CWD INSKEO.Inputs[OLE DB Destination Input].ExternalColumns[B6B7TX]"
-                          lineageId="Package\SkuDesign\LOAD TO INSKEO TEMP\Truncate SkuDesign down to 10.Outputs[Derived Column Output].Columns[TruncatedSkuDesign]" />
+                          externalMetadataColumnId="Package\SkuDesign\LOAD TO INSKEO TEMP\CWD temp_INSKEO.Inputs[OLE DB Destination Input].ExternalColumns[B6B7TX]"
+                          lineageId="Package\SkuDesign\LOAD TO INSKEO TEMP\Truncate SkuDesign down from 50 to 10.Outputs[Derived Column Output].Columns[TruncatedSkuDesign]" />
                       </inputColumns>
                       <externalMetadataColumns
                         isUsed="True">
                         <externalMetadataColumn
-                          refId="Package\SkuDesign\LOAD TO INSKEO TEMP\CWD INSKEO.Inputs[OLE DB Destination Input].ExternalColumns[B6GUCD]"
+                          refId="Package\SkuDesign\LOAD TO INSKEO TEMP\CWD temp_INSKEO.Inputs[OLE DB Destination Input].ExternalColumns[B6GUCD]"
                           codePage="1252"
                           dataType="str"
                           length="4"
                           name="B6GUCD" />
                         <externalMetadataColumn
-                          refId="Package\SkuDesign\LOAD TO INSKEO TEMP\CWD INSKEO.Inputs[OLE DB Destination Input].ExternalColumns[B6B7TX]"
+                          refId="Package\SkuDesign\LOAD TO INSKEO TEMP\CWD temp_INSKEO.Inputs[OLE DB Destination Input].ExternalColumns[B6B7TX]"
                           codePage="1252"
                           dataType="str"
                           length="10"
@@ -1647,22 +1647,22 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
                   </inputs>
                   <outputs>
                     <output
-                      refId="Package\SkuDesign\LOAD TO INSKEO TEMP\CWD INSKEO.Outputs[OLE DB Destination Error Output]"
+                      refId="Package\SkuDesign\LOAD TO INSKEO TEMP\CWD temp_INSKEO.Outputs[OLE DB Destination Error Output]"
                       exclusionGroup="1"
                       isErrorOut="true"
                       name="OLE DB Destination Error Output"
-                      synchronousInputId="Package\SkuDesign\LOAD TO INSKEO TEMP\CWD INSKEO.Inputs[OLE DB Destination Input]">
+                      synchronousInputId="Package\SkuDesign\LOAD TO INSKEO TEMP\CWD temp_INSKEO.Inputs[OLE DB Destination Input]">
                       <outputColumns>
                         <outputColumn
-                          refId="Package\SkuDesign\LOAD TO INSKEO TEMP\CWD INSKEO.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          refId="Package\SkuDesign\LOAD TO INSKEO TEMP\CWD temp_INSKEO.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
                           dataType="i4"
-                          lineageId="Package\SkuDesign\LOAD TO INSKEO TEMP\CWD INSKEO.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          lineageId="Package\SkuDesign\LOAD TO INSKEO TEMP\CWD temp_INSKEO.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
                           name="ErrorCode"
                           specialFlags="1" />
                         <outputColumn
-                          refId="Package\SkuDesign\LOAD TO INSKEO TEMP\CWD INSKEO.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          refId="Package\SkuDesign\LOAD TO INSKEO TEMP\CWD temp_INSKEO.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
                           dataType="i4"
-                          lineageId="Package\SkuDesign\LOAD TO INSKEO TEMP\CWD INSKEO.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          lineageId="Package\SkuDesign\LOAD TO INSKEO TEMP\CWD temp_INSKEO.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
                           name="ErrorColumn"
                           specialFlags="2" />
                       </outputColumns>
@@ -1809,20 +1809,20 @@ FROM [SkuDesign]</property>
                   </outputs>
                 </component>
                 <component
-                  refId="Package\SkuDesign\LOAD TO INSKEO TEMP\Truncate SkuDesign down to 10"
+                  refId="Package\SkuDesign\LOAD TO INSKEO TEMP\Truncate SkuDesign down from 50 to 10"
                   componentClassID="DTSTransform.DerivedColumn.3"
                   contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
                   description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
-                  name="Truncate SkuDesign down to 10"
+                  name="Truncate SkuDesign down from 50 to 10"
                   usesDispositions="true">
                   <inputs>
                     <input
-                      refId="Package\SkuDesign\LOAD TO INSKEO TEMP\Truncate SkuDesign down to 10.Inputs[Derived Column Input]"
+                      refId="Package\SkuDesign\LOAD TO INSKEO TEMP\Truncate SkuDesign down from 50 to 10.Inputs[Derived Column Input]"
                       description="Input to the Derived Column Transformation"
                       name="Derived Column Input">
                       <inputColumns>
                         <inputColumn
-                          refId="Package\SkuDesign\LOAD TO INSKEO TEMP\Truncate SkuDesign down to 10.Inputs[Derived Column Input].Columns[SkuDesign]"
+                          refId="Package\SkuDesign\LOAD TO INSKEO TEMP\Truncate SkuDesign down from 50 to 10.Inputs[Derived Column Input].Columns[SkuDesign]"
                           cachedCodepage="1252"
                           cachedDataType="str"
                           cachedLength="8000"
@@ -1834,20 +1834,20 @@ FROM [SkuDesign]</property>
                   </inputs>
                   <outputs>
                     <output
-                      refId="Package\SkuDesign\LOAD TO INSKEO TEMP\Truncate SkuDesign down to 10.Outputs[Derived Column Output]"
+                      refId="Package\SkuDesign\LOAD TO INSKEO TEMP\Truncate SkuDesign down from 50 to 10.Outputs[Derived Column Output]"
                       description="Default Output of the Derived Column Transformation"
                       exclusionGroup="1"
                       name="Derived Column Output"
-                      synchronousInputId="Package\SkuDesign\LOAD TO INSKEO TEMP\Truncate SkuDesign down to 10.Inputs[Derived Column Input]">
+                      synchronousInputId="Package\SkuDesign\LOAD TO INSKEO TEMP\Truncate SkuDesign down from 50 to 10.Inputs[Derived Column Input]">
                       <outputColumns>
                         <outputColumn
-                          refId="Package\SkuDesign\LOAD TO INSKEO TEMP\Truncate SkuDesign down to 10.Outputs[Derived Column Output].Columns[TruncatedSkuDesign]"
+                          refId="Package\SkuDesign\LOAD TO INSKEO TEMP\Truncate SkuDesign down from 50 to 10.Outputs[Derived Column Output].Columns[TruncatedSkuDesign]"
                           codePage="1252"
                           dataType="str"
                           errorOrTruncationOperation="Computation"
                           errorRowDisposition="FailComponent"
                           length="10"
-                          lineageId="Package\SkuDesign\LOAD TO INSKEO TEMP\Truncate SkuDesign down to 10.Outputs[Derived Column Output].Columns[TruncatedSkuDesign]"
+                          lineageId="Package\SkuDesign\LOAD TO INSKEO TEMP\Truncate SkuDesign down from 50 to 10.Outputs[Derived Column Output].Columns[TruncatedSkuDesign]"
                           name="TruncatedSkuDesign"
                           truncationRowDisposition="FailComponent">
                           <properties>
@@ -1868,23 +1868,23 @@ FROM [SkuDesign]</property>
                       <externalMetadataColumns />
                     </output>
                     <output
-                      refId="Package\SkuDesign\LOAD TO INSKEO TEMP\Truncate SkuDesign down to 10.Outputs[Derived Column Error Output]"
+                      refId="Package\SkuDesign\LOAD TO INSKEO TEMP\Truncate SkuDesign down from 50 to 10.Outputs[Derived Column Error Output]"
                       description="Error Output of the Derived Column Transformation"
                       exclusionGroup="1"
                       isErrorOut="true"
                       name="Derived Column Error Output"
-                      synchronousInputId="Package\SkuDesign\LOAD TO INSKEO TEMP\Truncate SkuDesign down to 10.Inputs[Derived Column Input]">
+                      synchronousInputId="Package\SkuDesign\LOAD TO INSKEO TEMP\Truncate SkuDesign down from 50 to 10.Inputs[Derived Column Input]">
                       <outputColumns>
                         <outputColumn
-                          refId="Package\SkuDesign\LOAD TO INSKEO TEMP\Truncate SkuDesign down to 10.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          refId="Package\SkuDesign\LOAD TO INSKEO TEMP\Truncate SkuDesign down from 50 to 10.Outputs[Derived Column Error Output].Columns[ErrorCode]"
                           dataType="i4"
-                          lineageId="Package\SkuDesign\LOAD TO INSKEO TEMP\Truncate SkuDesign down to 10.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          lineageId="Package\SkuDesign\LOAD TO INSKEO TEMP\Truncate SkuDesign down from 50 to 10.Outputs[Derived Column Error Output].Columns[ErrorCode]"
                           name="ErrorCode"
                           specialFlags="1" />
                         <outputColumn
-                          refId="Package\SkuDesign\LOAD TO INSKEO TEMP\Truncate SkuDesign down to 10.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                          refId="Package\SkuDesign\LOAD TO INSKEO TEMP\Truncate SkuDesign down from 50 to 10.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
                           dataType="i4"
-                          lineageId="Package\SkuDesign\LOAD TO INSKEO TEMP\Truncate SkuDesign down to 10.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                          lineageId="Package\SkuDesign\LOAD TO INSKEO TEMP\Truncate SkuDesign down from 50 to 10.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
                           name="ErrorColumn"
                           specialFlags="2" />
                       </outputColumns>
@@ -1896,12 +1896,12 @@ FROM [SkuDesign]</property>
               <paths>
                 <path
                   refId="Package\SkuDesign\LOAD TO INSKEO TEMP.Paths[Derived Column Output]"
-                  endId="Package\SkuDesign\LOAD TO INSKEO TEMP\CWD INSKEO.Inputs[OLE DB Destination Input]"
+                  endId="Package\SkuDesign\LOAD TO INSKEO TEMP\CWD temp_INSKEO.Inputs[OLE DB Destination Input]"
                   name="Derived Column Output"
-                  startId="Package\SkuDesign\LOAD TO INSKEO TEMP\Truncate SkuDesign down to 10.Outputs[Derived Column Output]" />
+                  startId="Package\SkuDesign\LOAD TO INSKEO TEMP\Truncate SkuDesign down from 50 to 10.Outputs[Derived Column Output]" />
                 <path
                   refId="Package\SkuDesign\LOAD TO INSKEO TEMP.Paths[OLE DB Source Output]"
-                  endId="Package\SkuDesign\LOAD TO INSKEO TEMP\Truncate SkuDesign down to 10.Inputs[Derived Column Input]"
+                  endId="Package\SkuDesign\LOAD TO INSKEO TEMP\Truncate SkuDesign down from 50 to 10.Inputs[Derived Column Input]"
                   name="OLE DB Source Output"
                   startId="Package\SkuDesign\LOAD TO INSKEO TEMP\MAPS SkuDesign.Outputs[OLE DB Source Output]" />
               </paths>
@@ -2667,7 +2667,7 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
                           cachedLength="10"
                           cachedName="TruncatedSkuSize"
                           externalMetadataColumnId="Package\SkuSize\LOAD TO INSKET TEMP\CWD temp_INSKET.Inputs[OLE DB Destination Input].ExternalColumns[B8B9TX]"
-                          lineageId="Package\SkuSize\LOAD TO INSKET TEMP\Truncate SkuSize column to fit CWD database length.Outputs[Derived Column Output].Columns[TruncatedSkuSize]" />
+                          lineageId="Package\SkuSize\LOAD TO INSKET TEMP\Truncate SkuSize column from 50 to 10 to fit CWD database length.Outputs[Derived Column Output].Columns[TruncatedSkuSize]" />
                       </inputColumns>
                       <externalMetadataColumns
                         isUsed="True">
@@ -2850,20 +2850,20 @@ FROM [SkuSize]</property>
                   </outputs>
                 </component>
                 <component
-                  refId="Package\SkuSize\LOAD TO INSKET TEMP\Truncate SkuSize column to fit CWD database length"
+                  refId="Package\SkuSize\LOAD TO INSKET TEMP\Truncate SkuSize column from 50 to 10 to fit CWD database length"
                   componentClassID="DTSTransform.DerivedColumn.3"
                   contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
                   description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
-                  name="Truncate SkuSize column to fit CWD database length"
+                  name="Truncate SkuSize column from 50 to 10 to fit CWD database length"
                   usesDispositions="true">
                   <inputs>
                     <input
-                      refId="Package\SkuSize\LOAD TO INSKET TEMP\Truncate SkuSize column to fit CWD database length.Inputs[Derived Column Input]"
+                      refId="Package\SkuSize\LOAD TO INSKET TEMP\Truncate SkuSize column from 50 to 10 to fit CWD database length.Inputs[Derived Column Input]"
                       description="Input to the Derived Column Transformation"
                       name="Derived Column Input">
                       <inputColumns>
                         <inputColumn
-                          refId="Package\SkuSize\LOAD TO INSKET TEMP\Truncate SkuSize column to fit CWD database length.Inputs[Derived Column Input].Columns[SkuSize]"
+                          refId="Package\SkuSize\LOAD TO INSKET TEMP\Truncate SkuSize column from 50 to 10 to fit CWD database length.Inputs[Derived Column Input].Columns[SkuSize]"
                           cachedCodepage="1252"
                           cachedDataType="str"
                           cachedLength="50"
@@ -2875,20 +2875,20 @@ FROM [SkuSize]</property>
                   </inputs>
                   <outputs>
                     <output
-                      refId="Package\SkuSize\LOAD TO INSKET TEMP\Truncate SkuSize column to fit CWD database length.Outputs[Derived Column Output]"
+                      refId="Package\SkuSize\LOAD TO INSKET TEMP\Truncate SkuSize column from 50 to 10 to fit CWD database length.Outputs[Derived Column Output]"
                       description="Default Output of the Derived Column Transformation"
                       exclusionGroup="1"
                       name="Derived Column Output"
-                      synchronousInputId="Package\SkuSize\LOAD TO INSKET TEMP\Truncate SkuSize column to fit CWD database length.Inputs[Derived Column Input]">
+                      synchronousInputId="Package\SkuSize\LOAD TO INSKET TEMP\Truncate SkuSize column from 50 to 10 to fit CWD database length.Inputs[Derived Column Input]">
                       <outputColumns>
                         <outputColumn
-                          refId="Package\SkuSize\LOAD TO INSKET TEMP\Truncate SkuSize column to fit CWD database length.Outputs[Derived Column Output].Columns[TruncatedSkuSize]"
+                          refId="Package\SkuSize\LOAD TO INSKET TEMP\Truncate SkuSize column from 50 to 10 to fit CWD database length.Outputs[Derived Column Output].Columns[TruncatedSkuSize]"
                           codePage="1252"
                           dataType="str"
                           errorOrTruncationOperation="Computation"
                           errorRowDisposition="FailComponent"
                           length="10"
-                          lineageId="Package\SkuSize\LOAD TO INSKET TEMP\Truncate SkuSize column to fit CWD database length.Outputs[Derived Column Output].Columns[TruncatedSkuSize]"
+                          lineageId="Package\SkuSize\LOAD TO INSKET TEMP\Truncate SkuSize column from 50 to 10 to fit CWD database length.Outputs[Derived Column Output].Columns[TruncatedSkuSize]"
                           name="TruncatedSkuSize"
                           truncationRowDisposition="FailComponent">
                           <properties>
@@ -2909,23 +2909,23 @@ FROM [SkuSize]</property>
                       <externalMetadataColumns />
                     </output>
                     <output
-                      refId="Package\SkuSize\LOAD TO INSKET TEMP\Truncate SkuSize column to fit CWD database length.Outputs[Derived Column Error Output]"
+                      refId="Package\SkuSize\LOAD TO INSKET TEMP\Truncate SkuSize column from 50 to 10 to fit CWD database length.Outputs[Derived Column Error Output]"
                       description="Error Output of the Derived Column Transformation"
                       exclusionGroup="1"
                       isErrorOut="true"
                       name="Derived Column Error Output"
-                      synchronousInputId="Package\SkuSize\LOAD TO INSKET TEMP\Truncate SkuSize column to fit CWD database length.Inputs[Derived Column Input]">
+                      synchronousInputId="Package\SkuSize\LOAD TO INSKET TEMP\Truncate SkuSize column from 50 to 10 to fit CWD database length.Inputs[Derived Column Input]">
                       <outputColumns>
                         <outputColumn
-                          refId="Package\SkuSize\LOAD TO INSKET TEMP\Truncate SkuSize column to fit CWD database length.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          refId="Package\SkuSize\LOAD TO INSKET TEMP\Truncate SkuSize column from 50 to 10 to fit CWD database length.Outputs[Derived Column Error Output].Columns[ErrorCode]"
                           dataType="i4"
-                          lineageId="Package\SkuSize\LOAD TO INSKET TEMP\Truncate SkuSize column to fit CWD database length.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          lineageId="Package\SkuSize\LOAD TO INSKET TEMP\Truncate SkuSize column from 50 to 10 to fit CWD database length.Outputs[Derived Column Error Output].Columns[ErrorCode]"
                           name="ErrorCode"
                           specialFlags="1" />
                         <outputColumn
-                          refId="Package\SkuSize\LOAD TO INSKET TEMP\Truncate SkuSize column to fit CWD database length.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                          refId="Package\SkuSize\LOAD TO INSKET TEMP\Truncate SkuSize column from 50 to 10 to fit CWD database length.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
                           dataType="i4"
-                          lineageId="Package\SkuSize\LOAD TO INSKET TEMP\Truncate SkuSize column to fit CWD database length.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                          lineageId="Package\SkuSize\LOAD TO INSKET TEMP\Truncate SkuSize column from 50 to 10 to fit CWD database length.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
                           name="ErrorColumn"
                           specialFlags="2" />
                       </outputColumns>
@@ -2939,10 +2939,10 @@ FROM [SkuSize]</property>
                   refId="Package\SkuSize\LOAD TO INSKET TEMP.Paths[Derived Column Output]"
                   endId="Package\SkuSize\LOAD TO INSKET TEMP\CWD temp_INSKET.Inputs[OLE DB Destination Input]"
                   name="Derived Column Output"
-                  startId="Package\SkuSize\LOAD TO INSKET TEMP\Truncate SkuSize column to fit CWD database length.Outputs[Derived Column Output]" />
+                  startId="Package\SkuSize\LOAD TO INSKET TEMP\Truncate SkuSize column from 50 to 10 to fit CWD database length.Outputs[Derived Column Output]" />
                 <path
                   refId="Package\SkuSize\LOAD TO INSKET TEMP.Paths[OLE DB Source Output]"
-                  endId="Package\SkuSize\LOAD TO INSKET TEMP\Truncate SkuSize column to fit CWD database length.Inputs[Derived Column Input]"
+                  endId="Package\SkuSize\LOAD TO INSKET TEMP\Truncate SkuSize column from 50 to 10 to fit CWD database length.Inputs[Derived Column Input]"
                   name="OLE DB Source Output"
                   startId="Package\SkuSize\LOAD TO INSKET TEMP\MAPS - SkuSize.Outputs[OLE DB Source Output]" />
               </paths>
@@ -3485,7 +3485,7 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
     design-time-name="Package">
     <LayoutInfo>
       <GraphLayout
-        Capacity="64" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="64" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="241,42"
           Id="Package\SkuColor\CREATE INSKEW TEMP TABLE"
@@ -3531,7 +3531,7 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
           TopLeft="153.7,201.124999999999">
           <EdgeLayout.Curve>
             <mssgle:Curve
-              StartConnector="{assembly:Null}"
+              StartConnector="{x:Null}"
               EndConnector="0,28.8124999999998"
               Start="0,0"
               End="0,21.3124999999998">
@@ -3553,7 +3553,7 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
           TopLeft="486.4,201.124999999999">
           <EdgeLayout.Curve>
             <mssgle:Curve
-              StartConnector="{assembly:Null}"
+              StartConnector="{x:Null}"
               EndConnector="0,28.8124999999998"
               Start="0,0"
               End="0,21.3124999999998">
@@ -3575,7 +3575,7 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
           TopLeft="153.7,271.937499999999">
           <EdgeLayout.Curve>
             <mssgle:Curve
-              StartConnector="{assembly:Null}"
+              StartConnector="{x:Null}"
               EndConnector="0,28.8124999999998"
               Start="0,0"
               End="0,21.3124999999998">
@@ -3597,7 +3597,7 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
           TopLeft="486.4,271.937499999999">
           <EdgeLayout.Curve>
             <mssgle:Curve
-              StartConnector="{assembly:Null}"
+              StartConnector="{x:Null}"
               EndConnector="0,28.8124999999998"
               Start="0,0"
               End="0,21.3124999999998">
@@ -3619,7 +3619,7 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
           TopLeft="153.2,59.4999999999998">
           <EdgeLayout.Curve>
             <mssgle:Curve
-              StartConnector="{assembly:Null}"
+              StartConnector="{x:Null}"
               EndConnector="0,28.8125000000002"
               Start="0,0"
               End="0,21.3125000000002">
@@ -3641,7 +3641,7 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
           TopLeft="153.2,130.3125">
           <EdgeLayout.Curve>
             <mssgle:Curve
-              StartConnector="{assembly:Null}"
+              StartConnector="{x:Null}"
               EndConnector="0,28.812499999999"
               Start="0,0"
               End="0,21.312499999999">
@@ -3663,7 +3663,7 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
           TopLeft="486.4,59.4999999999998">
           <EdgeLayout.Curve>
             <mssgle:Curve
-              StartConnector="{assembly:Null}"
+              StartConnector="{x:Null}"
               EndConnector="0,28.8124999999998"
               Start="0,0"
               End="0,21.3124999999998">
@@ -3685,7 +3685,7 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
           TopLeft="486.4,130.3125">
           <EdgeLayout.Curve>
             <mssgle:Curve
-              StartConnector="{assembly:Null}"
+              StartConnector="{x:Null}"
               EndConnector="0,28.8124999999998"
               Start="0,0"
               End="0,21.3124999999998">
@@ -3754,7 +3754,7 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
           TopLeft="455.95,214.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
-              StartConnector="{assembly:Null}"
+              StartConnector="{x:Null}"
               EndConnector="0,25"
               Start="0,0"
               End="0,17.5">
@@ -3776,7 +3776,7 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
           TopLeft="164.75,211.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
-              StartConnector="{assembly:Null}"
+              StartConnector="{x:Null}"
               EndConnector="0,26"
               Start="0,0"
               End="0,18.5">
@@ -3798,7 +3798,7 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
           TopLeft="164.75,75.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
-              StartConnector="{assembly:Null}"
+              StartConnector="{x:Null}"
               EndConnector="0,26"
               Start="0,0"
               End="0,18.5">
@@ -3820,7 +3820,7 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
           TopLeft="164.75,143.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
-              StartConnector="{assembly:Null}"
+              StartConnector="{x:Null}"
               EndConnector="0,26"
               Start="0,0"
               End="0,18.5">
@@ -3842,7 +3842,7 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
           TopLeft="456.45,74.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
-              StartConnector="{assembly:Null}"
+              StartConnector="{x:Null}"
               EndConnector="0,33"
               Start="0,0"
               End="0,25.5">
@@ -3864,7 +3864,7 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
           TopLeft="455.95,149.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
-              StartConnector="{assembly:Null}"
+              StartConnector="{x:Null}"
               EndConnector="0,23"
               Start="0,0"
               End="0,15.5">
@@ -3886,7 +3886,7 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
           TopLeft="456.45,281.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
-              StartConnector="{assembly:Null}"
+              StartConnector="{x:Null}"
               EndConnector="0,24"
               Start="0,0"
               End="0,16.5">
@@ -3908,7 +3908,7 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
           TopLeft="164.75,279.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
-              StartConnector="{assembly:Null}"
+              StartConnector="{x:Null}"
               EndConnector="0,26"
               Start="0,0"
               End="0,18.5">
@@ -3928,10 +3928,10 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
         <ContainerLayout
           HeaderHeight="43"
           IsExpanded="True"
-          PanelSize="602,402"
-          Size="602,446"
+          PanelSize="598,368"
+          Size="598,412"
           Id="Package\SkuDesign"
-          TopLeft="80.5,676" />
+          TopLeft="84.55,676" />
         <NodeLayout
           Size="200,42"
           Id="Package\SkuSize\CREATE TEMP INSKET"
@@ -3977,7 +3977,7 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
           TopLeft="169.5,68.4999999999998">
           <EdgeLayout.Curve>
             <mssgle:Curve
-              StartConnector="{assembly:Null}"
+              StartConnector="{x:Null}"
               EndConnector="0,28.8125000000002"
               Start="0,0"
               End="0,21.3125000000002">
@@ -3999,7 +3999,7 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
           TopLeft="169.5,210.124999999999">
           <EdgeLayout.Curve>
             <mssgle:Curve
-              StartConnector="{assembly:Null}"
+              StartConnector="{x:Null}"
               EndConnector="0,28.8125"
               Start="0,0"
               End="0,21.3125">
@@ -4021,7 +4021,7 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
           TopLeft="499.2,210.124999999999">
           <EdgeLayout.Curve>
             <mssgle:Curve
-              StartConnector="{assembly:Null}"
+              StartConnector="{x:Null}"
               EndConnector="0,28.8125"
               Start="0,0"
               End="0,21.3125">
@@ -4043,7 +4043,7 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
           TopLeft="169.5,280.937499999999">
           <EdgeLayout.Curve>
             <mssgle:Curve
-              StartConnector="{assembly:Null}"
+              StartConnector="{x:Null}"
               EndConnector="0,28.8125"
               Start="0,0"
               End="0,21.3125">
@@ -4065,7 +4065,7 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
           TopLeft="499.2,280.937499999999">
           <EdgeLayout.Curve>
             <mssgle:Curve
-              StartConnector="{assembly:Null}"
+              StartConnector="{x:Null}"
               EndConnector="0,28.8125"
               Start="0,0"
               End="0,21.3125">
@@ -4087,7 +4087,7 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
           TopLeft="499.2,68.4999999999998">
           <EdgeLayout.Curve>
             <mssgle:Curve
-              StartConnector="{assembly:Null}"
+              StartConnector="{x:Null}"
               EndConnector="0,28.8125000000002"
               Start="0,0"
               End="0,21.3125000000002">
@@ -4109,7 +4109,7 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
           TopLeft="169.5,139.3125">
           <EdgeLayout.Curve>
             <mssgle:Curve
-              StartConnector="{assembly:Null}"
+              StartConnector="{x:Null}"
               EndConnector="0,28.812499999999"
               Start="0,0"
               End="0,21.312499999999">
@@ -4131,7 +4131,7 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
           TopLeft="499.2,139.3125">
           <EdgeLayout.Curve>
             <mssgle:Curve
-              StartConnector="{assembly:Null}"
+              StartConnector="{x:Null}"
               EndConnector="0,28.812499999999"
               Start="0,0"
               End="0,21.312499999999">
@@ -4160,7 +4160,7 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
           TopLeft="709.3,409">
           <EdgeLayout.Curve>
             <mssgle:Curve
-              StartConnector="{assembly:Null}"
+              StartConnector="{x:Null}"
               EndConnector="178.7,150.333333333333"
               Start="0,0"
               End="171.2,150.333333333333">
@@ -4196,37 +4196,44 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
           TopLeft="888,689.666666666667">
           <EdgeLayout.Curve>
             <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="-205.5,209.333333333333"
+              StartConnector="{x:Null}"
+              EndConnector="-205.45,192.333333333333"
               Start="0,0"
-              End="-198,209.333333333333">
+              End="-197.95,192.333333333333">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="-78.692461308038,0" />
+                    End="-78.6723414877684,0" />
                   <mssgle:CubicBezierSegment
-                    Point1="-78.692461308038,0"
-                    Point2="-82.692461308038,0"
-                    Point3="-82.692461308038,4" />
+                    Point1="-78.6723414877684,0"
+                    Point2="-82.6723414877684,0"
+                    Point3="-82.6723414877684,4" />
                   <mssgle:LineSegment
-                    End="-82.692461308038,205.333333333333" />
+                    End="-82.6723414877684,188.333333333333" />
                   <mssgle:CubicBezierSegment
-                    Point1="-82.692461308038,205.333333333333"
-                    Point2="-82.692461308038,209.333333333333"
-                    Point3="-86.692461308038,209.333333333333" />
+                    Point1="-82.6723414877684,188.333333333333"
+                    Point2="-82.6723414877684,192.333333333333"
+                    Point3="-86.6723414877684,192.333333333333" />
                   <mssgle:LineSegment
-                    End="-198,209.333333333333" />
+                    End="-197.95,192.333333333333" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-107.996914433038,-17.609375,50.60890625,11.609375"
+              BoundingBox="-107.976794612768,-17.609375,50.60890625,11.609375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
+        <AnnotationLayout
+          Text="To move new records and changes from MAPS to CWD, each of these conainers will:&#xD;&#xA;1. Create a temp table based on the final destination table. If that table exists, drop it first&#xD;&#xA;2. Load data from MAPS into that temp table.&#xD;&#xA;3. Use a MERGE SQL statement to insert new records and update existing records based on the CWDCode from the MAPS db.&#xD;&#xA;4. Drop the temp table we used."
+          ParentId="Package"
+          FontInfo="{x:Null}"
+          Size="692,104"
+          Id="1395dcc3-3b3f-4a65-ac2c-e90eafa62fff"
+          TopLeft="779,211" />
       </GraphLayout>
     </LayoutInfo>
   </Package>
@@ -4258,7 +4265,7 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
     design-time-name="Package\SkuColor\LOAD TO INSKEW TEMP">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="158,42"
           Id="Package\SkuColor\LOAD TO INSKEW TEMP\MAPS SkuColor"
@@ -4267,13 +4274,6 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
           Size="169,42"
           Id="Package\SkuColor\LOAD TO INSKEW TEMP\CWD Inskew table"
           TopLeft="285.666666666667,431" />
-        <AnnotationLayout
-          Text="Create a temporary table to hold the information from MAPS.&#xA;&#xA;This data will get compared to what is in CWD in the next step.&#xA;New rows will be added to CWD and any changes made in MAPS will be made in CWD.&#xA;&#xA;Some data columns in MAPS are longer than they are in CWD, so we truncate those columns down in a derived column."
-          ParentId="Package\SkuColor\LOAD TO INSKEW TEMP"
-          FontInfo="{assembly:Null}"
-          Size="662,120"
-          Id="6ef67c57-cd5c-4bdf-9709-dfb56d31a025"
-          TopLeft="561,259" />
         <NodeLayout
           Size="362,42"
           Id="Package\SkuColor\LOAD TO INSKEW TEMP\Truncate SkuColor colum from 50 to 10 to fit in CWD table"
@@ -4283,7 +4283,7 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
           TopLeft="370.166666666667,311">
           <EdgeLayout.Curve>
             <mssgle:Curve
-              StartConnector="{assembly:Null}"
+              StartConnector="{x:Null}"
               EndConnector="0,43"
               Start="0,0"
               End="0,35.5">
@@ -4305,7 +4305,7 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
           TopLeft="370.166666666667,396">
           <EdgeLayout.Curve>
             <mssgle:Curve
-              StartConnector="{assembly:Null}"
+              StartConnector="{x:Null}"
               EndConnector="0,35"
               Start="0,0"
               End="0,27.5">
@@ -4322,6 +4322,13 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
+        <AnnotationLayout
+          Text="Load data from MAPS into our temporary table.&#xA;&#xA;This data will get compared to what is in CWD in the next step.&#xA;New rows will be added to CWD and any changes made in MAPS will be made in CWD.&#xA;&#xA;Some data columns in MAPS are longer than they are in CWD, so we truncate those columns down in a derived column."
+          ParentId="Package\SkuColor\LOAD TO INSKEW TEMP"
+          FontInfo="{x:Null}"
+          Size="662,120"
+          Id="1c73e5af-f434-42ed-9cdc-429e0024c237"
+          TopLeft="567,261" />
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
@@ -4345,7 +4352,7 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
     design-time-name="Package\SkuColor\LOAD TO INSKEWX TEMP">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="158,42"
           Id="Package\SkuColor\LOAD TO INSKEWX TEMP\MAPS SkuColor"
@@ -4359,7 +4366,7 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
           TopLeft="380.75,311">
           <EdgeLayout.Curve>
             <mssgle:Curve
-              StartConnector="{assembly:Null}"
+              StartConnector="{x:Null}"
               EndConnector="0,57"
               Start="0,0"
               End="0,49.5">
@@ -4411,33 +4418,33 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
     design-time-name="Package\SkuDesign\LOAD TO INSKEO TEMP">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssge="clr-namespace:Microsoft.SqlServer.Graph.Extended;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:av="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
         <NodeLayout
           Size="166,42"
           Id="Package\SkuDesign\LOAD TO INSKEO TEMP\MAPS SkuDesign"
           TopLeft="390.833333333333,270" />
         <NodeLayout
-          Size="150,42"
-          Id="Package\SkuDesign\LOAD TO INSKEO TEMP\CWD INSKEO"
-          TopLeft="398.833333333333,437" />
+          Size="180,42"
+          Id="Package\SkuDesign\LOAD TO INSKEO TEMP\CWD temp_INSKEO"
+          TopLeft="382.833333333333,414" />
         <NodeLayout
-          Size="235,42"
-          Id="Package\SkuDesign\LOAD TO INSKEO TEMP\Truncate SkuDesign down to 10"
-          TopLeft="356.333333333333,353.5" />
+          Size="275,42"
+          Id="Package\SkuDesign\LOAD TO INSKEO TEMP\Truncate SkuDesign down from 50 to 10"
+          TopLeft="340.333333333333,341.5" />
         <EdgeLayout
           Id="Package\SkuDesign\LOAD TO INSKEO TEMP.Paths[OLE DB Source Output]"
-          TopLeft="473.833333333333,312">
+          TopLeft="475.833333333333,312">
           <EdgeLayout.Curve>
             <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,41.5"
+              StartConnector="{x:Null}"
+              EndConnector="0,29.5"
               Start="0,0"
-              End="0,34">
+              End="0,22">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,34" />
+                    End="0,22" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -4448,18 +4455,18 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\SkuDesign\LOAD TO INSKEO TEMP.Paths[Derived Column Output]"
-          TopLeft="473.833333333333,395.5">
+          TopLeft="475.333333333333,383.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,41.5"
+              StartConnector="{x:Null}"
+              EndConnector="0,30.5"
               Start="0,0"
-              End="0,34">
+              End="0,23">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,34" />
+                    End="0,23" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -4469,24 +4476,44 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <AnnotationLayout
-          Text="Create a temporary table to hold the information from MAPS.&#xA;&#xA;This data will get compared to what is in CWD in the next step.&#xA;New rows will be added to CWD and any changes made in MAPS will be made in CWD.&#xA;&#xA;Some data columns in MAPS are longer than they are in CWD, so we truncate those columns down in a derived column."
+          Text="Load data from MAPS into a temporary table in CWD.&#xA;&#xA;This data will get compared to what is in CWD in the next step.&#xA;New rows will be added to CWD and any changes made in MAPS will be made in CWD.&#xA;&#xA;Some data columns in MAPS are longer than they are in CWD, so we truncate those columns down in a derived column."
           ParentId="Package\SkuDesign\LOAD TO INSKEO TEMP"
-          FontInfo="{assembly:Null}"
-          Size="662,120"
+          Size="625,105"
           Id="2d0d6327-694f-4f29-bdaf-010c079b9d5a"
-          TopLeft="621,349" />
+          TopLeft="900,253">
+          <AnnotationLayout.FontInfo>
+            <mssge:FontInfo
+              Family="Tahoma"
+              Size="11.25"
+              Color="#FF000000">
+              <mssge:FontInfo.TextDecorations>
+                <av:TextDecorationCollection />
+              </mssge:FontInfo.TextDecorations>
+            </mssge:FontInfo>
+          </AnnotationLayout.FontInfo>
+        </AnnotationLayout>
         <AnnotationLayout
           Text="MAPS SkuDesign table contains some invalid characters.&#xD;&#xA;Those are removed with a replace.&#xD;&#xA;In this situation a double apostrophe is replaced with quotes."
           ParentId="Package\SkuDesign\LOAD TO INSKEO TEMP"
-          FontInfo="{assembly:Null}"
-          Size="352,72"
+          Size="333,65"
           Id="cb7b4608-cc0d-43f3-b5c0-0628e373d5ec"
-          TopLeft="567,253" />
+          TopLeft="567,253">
+          <AnnotationLayout.FontInfo>
+            <mssge:FontInfo
+              Family="Tahoma"
+              Size="11.25"
+              Color="#FF000000">
+              <mssge:FontInfo.TextDecorations>
+                <av:TextDecorationCollection />
+              </mssge:FontInfo.TextDecorations>
+            </mssge:FontInfo>
+          </AnnotationLayout.FontInfo>
+        </AnnotationLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
-    design-time-name="Package\SkuDesign\LOAD TO INSKEO TEMP\CWD INSKEO">
+    design-time-name="Package\SkuDesign\LOAD TO INSKEO TEMP\CWD temp_INSKEO">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -4505,7 +4532,7 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
     design-time-name="Package\SkuDesign\LOAD TO INSKEOX TEMP">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssge="clr-namespace:Microsoft.SqlServer.Graph.Extended;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:av="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
         <NodeLayout
           Size="166,42"
           Id="Package\SkuDesign\LOAD TO INSKEOX TEMP\MAPS SkuDesign"
@@ -4523,7 +4550,7 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
           TopLeft="411.5,281">
           <EdgeLayout.Curve>
             <mssgle:Curve
-              StartConnector="{assembly:Null}"
+              StartConnector="{x:Null}"
               EndConnector="0,37"
               Start="0,0"
               End="0,29.5">
@@ -4545,7 +4572,7 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
           TopLeft="411.5,360">
           <EdgeLayout.Curve>
             <mssgle:Curve
-              StartConnector="{assembly:Null}"
+              StartConnector="{x:Null}"
               EndConnector="0,42"
               Start="0,0"
               End="0,34.5">
@@ -4565,10 +4592,20 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
         <AnnotationLayout
           Text="Unlike the other tables in this package, the SkuDesign column length is 8000.&#xD;&#xA;This column also contains that can not be loaded into CWD. Those values are replaced in a SQL query.&#xD;&#xA;&#xD;&#xA;The column gets truncated to 50 as a derived column then loaded into the temp table."
           ParentId="Package\SkuDesign\LOAD TO INSKEOX TEMP"
-          FontInfo="{assembly:Null}"
-          Size="568,88"
+          Size="539,78"
           Id="b59f62af-396d-414e-8bda-a8ad3e6b74c5"
-          TopLeft="588,235" />
+          TopLeft="569,301">
+          <AnnotationLayout.FontInfo>
+            <mssge:FontInfo
+              Family="Tahoma"
+              Size="11.25"
+              Color="#FF000000">
+              <mssge:FontInfo.TextDecorations>
+                <av:TextDecorationCollection />
+              </mssge:FontInfo.TextDecorations>
+            </mssge:FontInfo>
+          </AnnotationLayout.FontInfo>
+        </AnnotationLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
@@ -4604,7 +4641,7 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
     design-time-name="Package\SkuSize\LOAD TO INSKET TEMP">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssge="clr-namespace:Microsoft.SqlServer.Graph.Extended;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:av="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
         <NodeLayout
           Size="160,42"
           Id="Package\SkuSize\LOAD TO INSKET TEMP\MAPS - SkuSize"
@@ -4614,23 +4651,35 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
           Id="Package\SkuSize\LOAD TO INSKET TEMP\CWD temp_INSKET"
           TopLeft="246.333333333333,364" />
         <NodeLayout
-          Size="338,42"
-          Id="Package\SkuSize\LOAD TO INSKET TEMP\Truncate SkuSize column to fit CWD database length"
+          Size="405,42"
+          Id="Package\SkuSize\LOAD TO INSKET TEMP\Truncate SkuSize column from 50 to 10 to fit CWD database length"
           TopLeft="166.333333333333,271" />
         <EdgeLayout
           Id="Package\SkuSize\LOAD TO INSKET TEMP.Paths[OLE DB Source Output]"
           TopLeft="335.333333333333,223.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,47.5"
+              StartConnector="{x:Null}"
+              EndConnector="33.5,47.5"
               Start="0,0"
-              End="0,40">
+              End="33.5,40">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,40" />
+                    End="0,19.75" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,19.75"
+                    Point2="0,23.75"
+                    Point3="4,23.75" />
+                  <mssgle:LineSegment
+                    End="29.5,23.75" />
+                  <mssgle:CubicBezierSegment
+                    Point1="29.5,23.75"
+                    Point2="33.5,23.75"
+                    Point3="33.5,27.75" />
+                  <mssgle:LineSegment
+                    End="33.5,40" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -4641,18 +4690,30 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\SkuSize\LOAD TO INSKET TEMP.Paths[Derived Column Output]"
-          TopLeft="335.333333333333,313">
+          TopLeft="368.833333333333,313">
           <EdgeLayout.Curve>
             <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,51"
+              StartConnector="{x:Null}"
+              EndConnector="-33.5,51"
               Start="0,0"
-              End="0,43.5">
+              End="-33.5,43.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,43.5" />
+                    End="0,21.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,21.5"
+                    Point2="0,25.5"
+                    Point3="-4,25.5" />
+                  <mssgle:LineSegment
+                    End="-29.5,25.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-29.5,25.5"
+                    Point2="-33.5,25.5"
+                    Point3="-33.5,29.5" />
+                  <mssgle:LineSegment
+                    End="-33.5,43.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -4662,12 +4723,22 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <AnnotationLayout
-          Text="Create a temporary table to hold the information from MAPS.&#xD;&#xA;&#xD;&#xA;This data will get compared to what is in CWD in the next step.&#xD;&#xA;New rows will be added to CWD and any changes made in MAPS will be made in CWD.&#xD;&#xA;&#xD;&#xA;Some data columns in MAPS are longer than they are in CWD, so we truncate those columns down in a derived column."
+          Text="Load the temp table we created with the information from MAPS.&#xD;&#xA;&#xD;&#xA;This data will get compared to what is in CWD in the next step.&#xD;&#xA;New rows will be added to CWD and any changes made in MAPS will be made in CWD.&#xD;&#xA;&#xD;&#xA;Some data columns in MAPS are longer than they are in CWD, so we truncate those columns down in a derived column."
           ParentId="Package\SkuSize\LOAD TO INSKET TEMP"
-          FontInfo="{assembly:Null}"
-          Size="662,120"
+          Size="662,105"
           Id="421c6c57-e753-4f00-8c9e-e0a7bb920d7a"
-          TopLeft="670,203" />
+          TopLeft="608,204">
+          <AnnotationLayout.FontInfo>
+            <mssge:FontInfo
+              Family="Tahoma"
+              Size="11.25"
+              Color="#FF000000">
+              <mssge:FontInfo.TextDecorations>
+                <av:TextDecorationCollection />
+              </mssge:FontInfo.TextDecorations>
+            </mssge:FontInfo>
+          </AnnotationLayout.FontInfo>
+        </AnnotationLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
@@ -4691,7 +4762,7 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
     design-time-name="Package\SkuSize\LOAD TO TEMP INSKETX TABLE">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="166,42"
           Id="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\MAPS SkuDesign"
@@ -4705,7 +4776,7 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
           TopLeft="382,312">
           <EdgeLayout.Curve>
             <mssgle:Curve
-              StartConnector="{assembly:Null}"
+              StartConnector="{x:Null}"
               EndConnector="0,56"
               Start="0,0"
               End="0,48.5">
