@@ -12,8 +12,8 @@
   DTS:ObjectName="MI_SKUAttribute_MAPStoCWD"
   DTS:PackageType="5"
   DTS:ProtectionLevel="0"
-  DTS:VersionBuild="121"
-  DTS:VersionGUID="{EBA40FB4-8C19-4DE3-BDDF-82AA860DAB62}">
+  DTS:VersionBuild="132"
+  DTS:VersionGUID="{6C51E7FF-8783-464C-BC69-888E2D1C47CA}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">6</DTS:Property>
   <DTS:ConnectionManagers>
@@ -415,6 +415,42 @@ WHEN NOT MATCHED THEN
       <DTS:VariableValue
         DTS:DataType="8">DROP TABLE COLLTDATA.temp_INSKEWX IF EXISTS</DTS:VariableValue>
     </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{DA329A77-D453-4644-917A-C933E860F49F}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="&quot;SELECT [SkuColor],[CWDCode]&#xA;FROM [SkuColor]&quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Query_Select_SkuColor">
+      <DTS:VariableValue
+        DTS:DataType="8">SELECT [SkuColor],[CWDCode]
+FROM [SkuColor]</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{2E53F8AD-AEE3-4D99-9C27-1F8022D62F8A}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="&quot;SELECT [SkuSize],[CWDCode]&#xA;FROM [SkuSize]&quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Query_Select_SkuSize">
+      <DTS:VariableValue
+        DTS:DataType="8">SELECT [SkuSize],[CWDCode]
+FROM [SkuSize]</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{46BAA2C2-EF6F-434F-B873-FE01787D49D9}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="&quot;SELECT REPLACE([SkuDesign],CHAR(148),CHAR(34))[SkuDesign],[CWDCode]&#xA;FROM [SkuDesign]&quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Query_Selelct_SkuDesign">
+      <DTS:VariableValue
+        DTS:DataType="8">SELECT REPLACE([SkuDesign],CHAR(148),CHAR(34))[SkuDesign],[CWDCode]
+FROM [SkuDesign]</DTS:VariableValue>
+    </DTS:Variable>
   </DTS:Variables>
   <DTS:Executables>
     <DTS:Executable
@@ -441,7 +477,8 @@ WHEN NOT MATCHED THEN
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
               SQLTask:Connection="{7D92FDC8-3950-44F3-9631-8EF724AEBF5B}"
-              SQLTask:SqlStatementSource="CREATE TABLE colltdata.temp_INSKEW LIKE CWMUDTA.INSKEW" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+              SQLTask:SqlStmtSourceType="Variable"
+              SQLTask:SqlStatementSource="User::Query_CreateTemp_INSKEW" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
           </DTS:ObjectData>
         </DTS:Executable>
         <DTS:Executable
@@ -458,7 +495,8 @@ WHEN NOT MATCHED THEN
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
               SQLTask:Connection="{7D92FDC8-3950-44F3-9631-8EF724AEBF5B}"
-              SQLTask:SqlStatementSource="CREATE TABLE colltdata.temp_INSKEWX  LIKE colltdata.INSKEWX" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+              SQLTask:SqlStmtSourceType="Variable"
+              SQLTask:SqlStatementSource="User::Query_CreateTemp_INSKEWX" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
           </DTS:ObjectData>
         </DTS:Executable>
         <DTS:Executable
@@ -548,11 +586,11 @@ WHEN NOT MATCHED THEN
               version="1">
               <components>
                 <component
-                  refId="Package\SkuColor\LOAD TO INSKEW TEMP\OLE DB Destination"
+                  refId="Package\SkuColor\LOAD TO INSKEW TEMP\CWD Inskew table"
                   componentClassID="DTSAdapter.OLEDBDestination.3"
                   contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
                   description="OLE DB Destination"
-                  name="OLE DB Destination"
+                  name="CWD Inskew table"
                   usesDispositions="true"
                   validateExternalMetadata="False"
                   version="4">
@@ -606,7 +644,7 @@ WHEN NOT MATCHED THEN
                   </properties>
                   <connections>
                     <connection
-                      refId="Package\SkuColor\LOAD TO INSKEW TEMP\OLE DB Destination.Connections[OleDbConnection]"
+                      refId="Package\SkuColor\LOAD TO INSKEW TEMP\CWD Inskew table.Connections[OleDbConnection]"
                       connectionManagerID="Package.ConnectionManagers[CWD_OLE]"
                       connectionManagerRefId="Package.ConnectionManagers[CWD_OLE]"
                       description="The OLE DB runtime connection used to access the database."
@@ -614,39 +652,38 @@ WHEN NOT MATCHED THEN
                   </connections>
                   <inputs>
                     <input
-                      refId="Package\SkuColor\LOAD TO INSKEW TEMP\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                      refId="Package\SkuColor\LOAD TO INSKEW TEMP\CWD Inskew table.Inputs[OLE DB Destination Input]"
                       errorOrTruncationOperation="Insert"
                       errorRowDisposition="IgnoreFailure"
                       hasSideEffects="true"
                       name="OLE DB Destination Input">
                       <inputColumns>
                         <inputColumn
-                          refId="Package\SkuColor\LOAD TO INSKEW TEMP\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[CWDCode]"
+                          refId="Package\SkuColor\LOAD TO INSKEW TEMP\CWD Inskew table.Inputs[OLE DB Destination Input].Columns[CWDCode]"
                           cachedCodepage="1252"
                           cachedDataType="str"
                           cachedLength="4"
                           cachedName="CWDCode"
-                          externalMetadataColumnId="Package\SkuColor\LOAD TO INSKEW TEMP\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[B7GVCD]"
-                          lineageId="Package\SkuColor\LOAD TO INSKEW TEMP\OLE DB Source.Outputs[OLE DB Source Output].Columns[CWDCode]" />
+                          externalMetadataColumnId="Package\SkuColor\LOAD TO INSKEW TEMP\CWD Inskew table.Inputs[OLE DB Destination Input].ExternalColumns[B7GVCD]"
+                          lineageId="Package\SkuColor\LOAD TO INSKEW TEMP\MAPS SkuColor.Outputs[OLE DB Source Output].Columns[CWDCode]" />
                         <inputColumn
-                          refId="Package\SkuColor\LOAD TO INSKEW TEMP\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[SkuColor]"
-                          cachedCodepage="1252"
-                          cachedDataType="str"
-                          cachedLength="50"
-                          cachedName="SkuColor"
-                          externalMetadataColumnId="Package\SkuColor\LOAD TO INSKEW TEMP\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[B7B8TX]"
-                          lineageId="Package\SkuColor\LOAD TO INSKEW TEMP\OLE DB Source.Outputs[OLE DB Source Output].Columns[SkuColor]" />
+                          refId="Package\SkuColor\LOAD TO INSKEW TEMP\CWD Inskew table.Inputs[OLE DB Destination Input].Columns[TruncatedSkuColor]"
+                          cachedDataType="wstr"
+                          cachedLength="10"
+                          cachedName="TruncatedSkuColor"
+                          externalMetadataColumnId="Package\SkuColor\LOAD TO INSKEW TEMP\CWD Inskew table.Inputs[OLE DB Destination Input].ExternalColumns[B7B8TX]"
+                          lineageId="Package\SkuColor\LOAD TO INSKEW TEMP\Truncate SkuColor colum from 50 to 10 to fit in CWD table.Outputs[Derived Column Output].Columns[TruncatedSkuColor]" />
                       </inputColumns>
                       <externalMetadataColumns
                         isUsed="True">
                         <externalMetadataColumn
-                          refId="Package\SkuColor\LOAD TO INSKEW TEMP\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[B7GVCD]"
+                          refId="Package\SkuColor\LOAD TO INSKEW TEMP\CWD Inskew table.Inputs[OLE DB Destination Input].ExternalColumns[B7GVCD]"
                           codePage="1252"
                           dataType="str"
                           length="4"
                           name="B7GVCD" />
                         <externalMetadataColumn
-                          refId="Package\SkuColor\LOAD TO INSKEW TEMP\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[B7B8TX]"
+                          refId="Package\SkuColor\LOAD TO INSKEW TEMP\CWD Inskew table.Inputs[OLE DB Destination Input].ExternalColumns[B7B8TX]"
                           codePage="1252"
                           dataType="str"
                           length="10"
@@ -656,22 +693,22 @@ WHEN NOT MATCHED THEN
                   </inputs>
                   <outputs>
                     <output
-                      refId="Package\SkuColor\LOAD TO INSKEW TEMP\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                      refId="Package\SkuColor\LOAD TO INSKEW TEMP\CWD Inskew table.Outputs[OLE DB Destination Error Output]"
                       exclusionGroup="1"
                       isErrorOut="true"
                       name="OLE DB Destination Error Output"
-                      synchronousInputId="Package\SkuColor\LOAD TO INSKEW TEMP\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                      synchronousInputId="Package\SkuColor\LOAD TO INSKEW TEMP\CWD Inskew table.Inputs[OLE DB Destination Input]">
                       <outputColumns>
                         <outputColumn
-                          refId="Package\SkuColor\LOAD TO INSKEW TEMP\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          refId="Package\SkuColor\LOAD TO INSKEW TEMP\CWD Inskew table.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
                           dataType="i4"
-                          lineageId="Package\SkuColor\LOAD TO INSKEW TEMP\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          lineageId="Package\SkuColor\LOAD TO INSKEW TEMP\CWD Inskew table.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
                           name="ErrorCode"
                           specialFlags="1" />
                         <outputColumn
-                          refId="Package\SkuColor\LOAD TO INSKEW TEMP\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          refId="Package\SkuColor\LOAD TO INSKEW TEMP\CWD Inskew table.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
                           dataType="i4"
-                          lineageId="Package\SkuColor\LOAD TO INSKEW TEMP\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          lineageId="Package\SkuColor\LOAD TO INSKEW TEMP\CWD Inskew table.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
                           name="ErrorColumn"
                           specialFlags="2" />
                       </outputColumns>
@@ -680,11 +717,11 @@ WHEN NOT MATCHED THEN
                   </outputs>
                 </component>
                 <component
-                  refId="Package\SkuColor\LOAD TO INSKEW TEMP\OLE DB Source"
+                  refId="Package\SkuColor\LOAD TO INSKEW TEMP\MAPS SkuColor"
                   componentClassID="DTSAdapter.OLEDBSource.3"
                   contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
                   description="OLE DB Source"
-                  name="OLE DB Source"
+                  name="MAPS SkuColor"
                   usesDispositions="true"
                   validateExternalMetadata="False"
                   version="7">
@@ -710,7 +747,7 @@ FROM [SkuColor]</property>
                     <property
                       dataType="System.String"
                       description="The variable that contains the SQL command to be executed."
-                      name="SqlCommandVariable"></property>
+                      name="SqlCommandVariable">User::Query_Select_SkuColor</property>
                     <property
                       dataType="System.Int32"
                       description="Specifies the column code page to use when code page information is unavailable from the data source."
@@ -723,7 +760,7 @@ FROM [SkuColor]</property>
                       dataType="System.Int32"
                       description="Specifies the mode used to access the database."
                       name="AccessMode"
-                      typeConverter="AccessMode">2</property>
+                      typeConverter="AccessMode">3</property>
                     <property
                       dataType="System.String"
                       description="The mappings between the parameters in the SQL command and variables."
@@ -731,7 +768,7 @@ FROM [SkuColor]</property>
                   </properties>
                   <connections>
                     <connection
-                      refId="Package\SkuColor\LOAD TO INSKEW TEMP\OLE DB Source.Connections[OleDbConnection]"
+                      refId="Package\SkuColor\LOAD TO INSKEW TEMP\MAPS SkuColor.Connections[OleDbConnection]"
                       connectionManagerID="Package.ConnectionManagers[MAPS OLE]"
                       connectionManagerRefId="Package.ConnectionManagers[MAPS OLE]"
                       description="The OLE DB runtime connection used to access the database."
@@ -739,42 +776,42 @@ FROM [SkuColor]</property>
                   </connections>
                   <outputs>
                     <output
-                      refId="Package\SkuColor\LOAD TO INSKEW TEMP\OLE DB Source.Outputs[OLE DB Source Output]"
+                      refId="Package\SkuColor\LOAD TO INSKEW TEMP\MAPS SkuColor.Outputs[OLE DB Source Output]"
                       name="OLE DB Source Output">
                       <outputColumns>
                         <outputColumn
-                          refId="Package\SkuColor\LOAD TO INSKEW TEMP\OLE DB Source.Outputs[OLE DB Source Output].Columns[CWDCode]"
+                          refId="Package\SkuColor\LOAD TO INSKEW TEMP\MAPS SkuColor.Outputs[OLE DB Source Output].Columns[CWDCode]"
                           codePage="1252"
                           dataType="str"
                           errorOrTruncationOperation="Conversion"
                           errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\SkuColor\LOAD TO INSKEW TEMP\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CWDCode]"
+                          externalMetadataColumnId="Package\SkuColor\LOAD TO INSKEW TEMP\MAPS SkuColor.Outputs[OLE DB Source Output].ExternalColumns[CWDCode]"
                           length="4"
-                          lineageId="Package\SkuColor\LOAD TO INSKEW TEMP\OLE DB Source.Outputs[OLE DB Source Output].Columns[CWDCode]"
+                          lineageId="Package\SkuColor\LOAD TO INSKEW TEMP\MAPS SkuColor.Outputs[OLE DB Source Output].Columns[CWDCode]"
                           name="CWDCode"
                           truncationRowDisposition="FailComponent" />
                         <outputColumn
-                          refId="Package\SkuColor\LOAD TO INSKEW TEMP\OLE DB Source.Outputs[OLE DB Source Output].Columns[SkuColor]"
+                          refId="Package\SkuColor\LOAD TO INSKEW TEMP\MAPS SkuColor.Outputs[OLE DB Source Output].Columns[SkuColor]"
                           codePage="1252"
                           dataType="str"
                           errorOrTruncationOperation="Conversion"
                           errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\SkuColor\LOAD TO INSKEW TEMP\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[SkuColor]"
+                          externalMetadataColumnId="Package\SkuColor\LOAD TO INSKEW TEMP\MAPS SkuColor.Outputs[OLE DB Source Output].ExternalColumns[SkuColor]"
                           length="50"
-                          lineageId="Package\SkuColor\LOAD TO INSKEW TEMP\OLE DB Source.Outputs[OLE DB Source Output].Columns[SkuColor]"
+                          lineageId="Package\SkuColor\LOAD TO INSKEW TEMP\MAPS SkuColor.Outputs[OLE DB Source Output].Columns[SkuColor]"
                           name="SkuColor"
                           truncationRowDisposition="FailComponent" />
                       </outputColumns>
                       <externalMetadataColumns
                         isUsed="True">
                         <externalMetadataColumn
-                          refId="Package\SkuColor\LOAD TO INSKEW TEMP\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CWDCode]"
+                          refId="Package\SkuColor\LOAD TO INSKEW TEMP\MAPS SkuColor.Outputs[OLE DB Source Output].ExternalColumns[CWDCode]"
                           codePage="1252"
                           dataType="str"
                           length="4"
                           name="CWDCode" />
                         <externalMetadataColumn
-                          refId="Package\SkuColor\LOAD TO INSKEW TEMP\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[SkuColor]"
+                          refId="Package\SkuColor\LOAD TO INSKEW TEMP\MAPS SkuColor.Outputs[OLE DB Source Output].ExternalColumns[SkuColor]"
                           codePage="1252"
                           dataType="str"
                           length="50"
@@ -782,34 +819,118 @@ FROM [SkuColor]</property>
                       </externalMetadataColumns>
                     </output>
                     <output
-                      refId="Package\SkuColor\LOAD TO INSKEW TEMP\OLE DB Source.Outputs[OLE DB Source Error Output]"
+                      refId="Package\SkuColor\LOAD TO INSKEW TEMP\MAPS SkuColor.Outputs[OLE DB Source Error Output]"
                       isErrorOut="true"
                       name="OLE DB Source Error Output">
                       <outputColumns>
                         <outputColumn
-                          refId="Package\SkuColor\LOAD TO INSKEW TEMP\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[SkuColor]"
+                          refId="Package\SkuColor\LOAD TO INSKEW TEMP\MAPS SkuColor.Outputs[OLE DB Source Error Output].Columns[SkuColor]"
                           codePage="1252"
                           dataType="str"
                           length="50"
-                          lineageId="Package\SkuColor\LOAD TO INSKEW TEMP\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[SkuColor]"
+                          lineageId="Package\SkuColor\LOAD TO INSKEW TEMP\MAPS SkuColor.Outputs[OLE DB Source Error Output].Columns[SkuColor]"
                           name="SkuColor" />
                         <outputColumn
-                          refId="Package\SkuColor\LOAD TO INSKEW TEMP\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CWDCode]"
+                          refId="Package\SkuColor\LOAD TO INSKEW TEMP\MAPS SkuColor.Outputs[OLE DB Source Error Output].Columns[CWDCode]"
                           codePage="1252"
                           dataType="str"
                           length="4"
-                          lineageId="Package\SkuColor\LOAD TO INSKEW TEMP\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CWDCode]"
+                          lineageId="Package\SkuColor\LOAD TO INSKEW TEMP\MAPS SkuColor.Outputs[OLE DB Source Error Output].Columns[CWDCode]"
                           name="CWDCode" />
                         <outputColumn
-                          refId="Package\SkuColor\LOAD TO INSKEW TEMP\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          refId="Package\SkuColor\LOAD TO INSKEW TEMP\MAPS SkuColor.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
                           dataType="i4"
-                          lineageId="Package\SkuColor\LOAD TO INSKEW TEMP\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          lineageId="Package\SkuColor\LOAD TO INSKEW TEMP\MAPS SkuColor.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
                           name="ErrorCode"
                           specialFlags="1" />
                         <outputColumn
-                          refId="Package\SkuColor\LOAD TO INSKEW TEMP\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          refId="Package\SkuColor\LOAD TO INSKEW TEMP\MAPS SkuColor.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
                           dataType="i4"
-                          lineageId="Package\SkuColor\LOAD TO INSKEW TEMP\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          lineageId="Package\SkuColor\LOAD TO INSKEW TEMP\MAPS SkuColor.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\SkuColor\LOAD TO INSKEW TEMP\Truncate SkuColor colum from 50 to 10 to fit in CWD table"
+                  componentClassID="DTSTransform.DerivedColumn.3"
+                  contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+                  name="Truncate SkuColor colum from 50 to 10 to fit in CWD table"
+                  usesDispositions="true">
+                  <inputs>
+                    <input
+                      refId="Package\SkuColor\LOAD TO INSKEW TEMP\Truncate SkuColor colum from 50 to 10 to fit in CWD table.Inputs[Derived Column Input]"
+                      description="Input to the Derived Column Transformation"
+                      name="Derived Column Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\SkuColor\LOAD TO INSKEW TEMP\Truncate SkuColor colum from 50 to 10 to fit in CWD table.Inputs[Derived Column Input].Columns[SkuColor]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="SkuColor"
+                          lineageId="Package\SkuColor\LOAD TO INSKEW TEMP\MAPS SkuColor.Outputs[OLE DB Source Output].Columns[SkuColor]" />
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\SkuColor\LOAD TO INSKEW TEMP\Truncate SkuColor colum from 50 to 10 to fit in CWD table.Outputs[Derived Column Output]"
+                      description="Default Output of the Derived Column Transformation"
+                      exclusionGroup="1"
+                      name="Derived Column Output"
+                      synchronousInputId="Package\SkuColor\LOAD TO INSKEW TEMP\Truncate SkuColor colum from 50 to 10 to fit in CWD table.Inputs[Derived Column Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\SkuColor\LOAD TO INSKEW TEMP\Truncate SkuColor colum from 50 to 10 to fit in CWD table.Outputs[Derived Column Output].Columns[TruncatedSkuColor]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          length="10"
+                          lineageId="Package\SkuColor\LOAD TO INSKEW TEMP\Truncate SkuColor colum from 50 to 10 to fit in CWD table.Outputs[Derived Column Output].Columns[TruncatedSkuColor]"
+                          name="TruncatedSkuColor"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">[SUBSTRING](#{Package\SkuColor\LOAD TO INSKEW TEMP\MAPS SkuColor.Outputs[OLE DB Source Output].Columns[SkuColor]},1,10)</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">SUBSTRING(SkuColor,1,10)</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\SkuColor\LOAD TO INSKEW TEMP\Truncate SkuColor colum from 50 to 10 to fit in CWD table.Outputs[Derived Column Error Output]"
+                      description="Error Output of the Derived Column Transformation"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Derived Column Error Output"
+                      synchronousInputId="Package\SkuColor\LOAD TO INSKEW TEMP\Truncate SkuColor colum from 50 to 10 to fit in CWD table.Inputs[Derived Column Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\SkuColor\LOAD TO INSKEW TEMP\Truncate SkuColor colum from 50 to 10 to fit in CWD table.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\SkuColor\LOAD TO INSKEW TEMP\Truncate SkuColor colum from 50 to 10 to fit in CWD table.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\SkuColor\LOAD TO INSKEW TEMP\Truncate SkuColor colum from 50 to 10 to fit in CWD table.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\SkuColor\LOAD TO INSKEW TEMP\Truncate SkuColor colum from 50 to 10 to fit in CWD table.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
                           name="ErrorColumn"
                           specialFlags="2" />
                       </outputColumns>
@@ -820,10 +941,15 @@ FROM [SkuColor]</property>
               </components>
               <paths>
                 <path
+                  refId="Package\SkuColor\LOAD TO INSKEW TEMP.Paths[Derived Column Output]"
+                  endId="Package\SkuColor\LOAD TO INSKEW TEMP\CWD Inskew table.Inputs[OLE DB Destination Input]"
+                  name="Derived Column Output"
+                  startId="Package\SkuColor\LOAD TO INSKEW TEMP\Truncate SkuColor colum from 50 to 10 to fit in CWD table.Outputs[Derived Column Output]" />
+                <path
                   refId="Package\SkuColor\LOAD TO INSKEW TEMP.Paths[OLE DB Source Output]"
-                  endId="Package\SkuColor\LOAD TO INSKEW TEMP\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  endId="Package\SkuColor\LOAD TO INSKEW TEMP\Truncate SkuColor colum from 50 to 10 to fit in CWD table.Inputs[Derived Column Input]"
                   name="OLE DB Source Output"
-                  startId="Package\SkuColor\LOAD TO INSKEW TEMP\OLE DB Source.Outputs[OLE DB Source Output]" />
+                  startId="Package\SkuColor\LOAD TO INSKEW TEMP\MAPS SkuColor.Outputs[OLE DB Source Output]" />
               </paths>
             </pipeline>
           </DTS:ObjectData>
@@ -843,11 +969,11 @@ FROM [SkuColor]</property>
               version="1">
               <components>
                 <component
-                  refId="Package\SkuColor\LOAD TO INSKEWX TEMP\OLE DB Destination"
+                  refId="Package\SkuColor\LOAD TO INSKEWX TEMP\CWD temp_INSKEWX"
                   componentClassID="DTSAdapter.OLEDBDestination.3"
                   contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
                   description="OLE DB Destination"
-                  name="OLE DB Destination"
+                  name="CWD temp_INSKEWX"
                   usesDispositions="true"
                   validateExternalMetadata="False"
                   version="4">
@@ -901,7 +1027,7 @@ FROM [SkuColor]</property>
                   </properties>
                   <connections>
                     <connection
-                      refId="Package\SkuColor\LOAD TO INSKEWX TEMP\OLE DB Destination.Connections[OleDbConnection]"
+                      refId="Package\SkuColor\LOAD TO INSKEWX TEMP\CWD temp_INSKEWX.Connections[OleDbConnection]"
                       connectionManagerID="Package.ConnectionManagers[CWD_OLE]"
                       connectionManagerRefId="Package.ConnectionManagers[CWD_OLE]"
                       description="The OLE DB runtime connection used to access the database."
@@ -909,39 +1035,39 @@ FROM [SkuColor]</property>
                   </connections>
                   <inputs>
                     <input
-                      refId="Package\SkuColor\LOAD TO INSKEWX TEMP\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                      refId="Package\SkuColor\LOAD TO INSKEWX TEMP\CWD temp_INSKEWX.Inputs[OLE DB Destination Input]"
                       errorOrTruncationOperation="Insert"
                       errorRowDisposition="FailComponent"
                       hasSideEffects="true"
                       name="OLE DB Destination Input">
                       <inputColumns>
                         <inputColumn
-                          refId="Package\SkuColor\LOAD TO INSKEWX TEMP\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[CWDCode]"
+                          refId="Package\SkuColor\LOAD TO INSKEWX TEMP\CWD temp_INSKEWX.Inputs[OLE DB Destination Input].Columns[CWDCode]"
                           cachedCodepage="1252"
                           cachedDataType="str"
                           cachedLength="4"
                           cachedName="CWDCode"
-                          externalMetadataColumnId="Package\SkuColor\LOAD TO INSKEWX TEMP\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[SKU_CODE]"
-                          lineageId="Package\SkuColor\LOAD TO INSKEWX TEMP\OLE DB Source.Outputs[OLE DB Source Output].Columns[CWDCode]" />
+                          externalMetadataColumnId="Package\SkuColor\LOAD TO INSKEWX TEMP\CWD temp_INSKEWX.Inputs[OLE DB Destination Input].ExternalColumns[SKU_CODE]"
+                          lineageId="Package\SkuColor\LOAD TO INSKEWX TEMP\MAPS SkuColor.Outputs[OLE DB Source Output].Columns[CWDCode]" />
                         <inputColumn
-                          refId="Package\SkuColor\LOAD TO INSKEWX TEMP\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[SkuColor]"
+                          refId="Package\SkuColor\LOAD TO INSKEWX TEMP\CWD temp_INSKEWX.Inputs[OLE DB Destination Input].Columns[SkuColor]"
                           cachedCodepage="1252"
                           cachedDataType="str"
                           cachedLength="50"
                           cachedName="SkuColor"
-                          externalMetadataColumnId="Package\SkuColor\LOAD TO INSKEWX TEMP\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[LONG_DESCRIPTION]"
-                          lineageId="Package\SkuColor\LOAD TO INSKEWX TEMP\OLE DB Source.Outputs[OLE DB Source Output].Columns[SkuColor]" />
+                          externalMetadataColumnId="Package\SkuColor\LOAD TO INSKEWX TEMP\CWD temp_INSKEWX.Inputs[OLE DB Destination Input].ExternalColumns[LONG_DESCRIPTION]"
+                          lineageId="Package\SkuColor\LOAD TO INSKEWX TEMP\MAPS SkuColor.Outputs[OLE DB Source Output].Columns[SkuColor]" />
                       </inputColumns>
                       <externalMetadataColumns
                         isUsed="True">
                         <externalMetadataColumn
-                          refId="Package\SkuColor\LOAD TO INSKEWX TEMP\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[SKU_CODE]"
+                          refId="Package\SkuColor\LOAD TO INSKEWX TEMP\CWD temp_INSKEWX.Inputs[OLE DB Destination Input].ExternalColumns[SKU_CODE]"
                           codePage="1252"
                           dataType="str"
                           length="4"
                           name="SKU_CODE" />
                         <externalMetadataColumn
-                          refId="Package\SkuColor\LOAD TO INSKEWX TEMP\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[LONG_DESCRIPTION]"
+                          refId="Package\SkuColor\LOAD TO INSKEWX TEMP\CWD temp_INSKEWX.Inputs[OLE DB Destination Input].ExternalColumns[LONG_DESCRIPTION]"
                           codePage="1252"
                           dataType="str"
                           length="50"
@@ -951,22 +1077,22 @@ FROM [SkuColor]</property>
                   </inputs>
                   <outputs>
                     <output
-                      refId="Package\SkuColor\LOAD TO INSKEWX TEMP\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                      refId="Package\SkuColor\LOAD TO INSKEWX TEMP\CWD temp_INSKEWX.Outputs[OLE DB Destination Error Output]"
                       exclusionGroup="1"
                       isErrorOut="true"
                       name="OLE DB Destination Error Output"
-                      synchronousInputId="Package\SkuColor\LOAD TO INSKEWX TEMP\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                      synchronousInputId="Package\SkuColor\LOAD TO INSKEWX TEMP\CWD temp_INSKEWX.Inputs[OLE DB Destination Input]">
                       <outputColumns>
                         <outputColumn
-                          refId="Package\SkuColor\LOAD TO INSKEWX TEMP\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          refId="Package\SkuColor\LOAD TO INSKEWX TEMP\CWD temp_INSKEWX.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
                           dataType="i4"
-                          lineageId="Package\SkuColor\LOAD TO INSKEWX TEMP\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          lineageId="Package\SkuColor\LOAD TO INSKEWX TEMP\CWD temp_INSKEWX.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
                           name="ErrorCode"
                           specialFlags="1" />
                         <outputColumn
-                          refId="Package\SkuColor\LOAD TO INSKEWX TEMP\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          refId="Package\SkuColor\LOAD TO INSKEWX TEMP\CWD temp_INSKEWX.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
                           dataType="i4"
-                          lineageId="Package\SkuColor\LOAD TO INSKEWX TEMP\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          lineageId="Package\SkuColor\LOAD TO INSKEWX TEMP\CWD temp_INSKEWX.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
                           name="ErrorColumn"
                           specialFlags="2" />
                       </outputColumns>
@@ -975,11 +1101,11 @@ FROM [SkuColor]</property>
                   </outputs>
                 </component>
                 <component
-                  refId="Package\SkuColor\LOAD TO INSKEWX TEMP\OLE DB Source"
+                  refId="Package\SkuColor\LOAD TO INSKEWX TEMP\MAPS SkuColor"
                   componentClassID="DTSAdapter.OLEDBSource.3"
                   contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
                   description="OLE DB Source"
-                  name="OLE DB Source"
+                  name="MAPS SkuColor"
                   usesDispositions="true"
                   validateExternalMetadata="False"
                   version="7">
@@ -1005,7 +1131,7 @@ FROM [SkuColor]</property>
                     <property
                       dataType="System.String"
                       description="The variable that contains the SQL command to be executed."
-                      name="SqlCommandVariable"></property>
+                      name="SqlCommandVariable">User::Query_Select_SkuColor</property>
                     <property
                       dataType="System.Int32"
                       description="Specifies the column code page to use when code page information is unavailable from the data source."
@@ -1018,7 +1144,7 @@ FROM [SkuColor]</property>
                       dataType="System.Int32"
                       description="Specifies the mode used to access the database."
                       name="AccessMode"
-                      typeConverter="AccessMode">2</property>
+                      typeConverter="AccessMode">3</property>
                     <property
                       dataType="System.String"
                       description="The mappings between the parameters in the SQL command and variables."
@@ -1026,7 +1152,7 @@ FROM [SkuColor]</property>
                   </properties>
                   <connections>
                     <connection
-                      refId="Package\SkuColor\LOAD TO INSKEWX TEMP\OLE DB Source.Connections[OleDbConnection]"
+                      refId="Package\SkuColor\LOAD TO INSKEWX TEMP\MAPS SkuColor.Connections[OleDbConnection]"
                       connectionManagerID="Package.ConnectionManagers[MAPS OLE]"
                       connectionManagerRefId="Package.ConnectionManagers[MAPS OLE]"
                       description="The OLE DB runtime connection used to access the database."
@@ -1034,42 +1160,42 @@ FROM [SkuColor]</property>
                   </connections>
                   <outputs>
                     <output
-                      refId="Package\SkuColor\LOAD TO INSKEWX TEMP\OLE DB Source.Outputs[OLE DB Source Output]"
+                      refId="Package\SkuColor\LOAD TO INSKEWX TEMP\MAPS SkuColor.Outputs[OLE DB Source Output]"
                       name="OLE DB Source Output">
                       <outputColumns>
                         <outputColumn
-                          refId="Package\SkuColor\LOAD TO INSKEWX TEMP\OLE DB Source.Outputs[OLE DB Source Output].Columns[CWDCode]"
+                          refId="Package\SkuColor\LOAD TO INSKEWX TEMP\MAPS SkuColor.Outputs[OLE DB Source Output].Columns[CWDCode]"
                           codePage="1252"
                           dataType="str"
                           errorOrTruncationOperation="Conversion"
                           errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\SkuColor\LOAD TO INSKEWX TEMP\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CWDCode]"
+                          externalMetadataColumnId="Package\SkuColor\LOAD TO INSKEWX TEMP\MAPS SkuColor.Outputs[OLE DB Source Output].ExternalColumns[CWDCode]"
                           length="4"
-                          lineageId="Package\SkuColor\LOAD TO INSKEWX TEMP\OLE DB Source.Outputs[OLE DB Source Output].Columns[CWDCode]"
+                          lineageId="Package\SkuColor\LOAD TO INSKEWX TEMP\MAPS SkuColor.Outputs[OLE DB Source Output].Columns[CWDCode]"
                           name="CWDCode"
                           truncationRowDisposition="FailComponent" />
                         <outputColumn
-                          refId="Package\SkuColor\LOAD TO INSKEWX TEMP\OLE DB Source.Outputs[OLE DB Source Output].Columns[SkuColor]"
+                          refId="Package\SkuColor\LOAD TO INSKEWX TEMP\MAPS SkuColor.Outputs[OLE DB Source Output].Columns[SkuColor]"
                           codePage="1252"
                           dataType="str"
                           errorOrTruncationOperation="Conversion"
                           errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\SkuColor\LOAD TO INSKEWX TEMP\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[SkuColor]"
+                          externalMetadataColumnId="Package\SkuColor\LOAD TO INSKEWX TEMP\MAPS SkuColor.Outputs[OLE DB Source Output].ExternalColumns[SkuColor]"
                           length="50"
-                          lineageId="Package\SkuColor\LOAD TO INSKEWX TEMP\OLE DB Source.Outputs[OLE DB Source Output].Columns[SkuColor]"
+                          lineageId="Package\SkuColor\LOAD TO INSKEWX TEMP\MAPS SkuColor.Outputs[OLE DB Source Output].Columns[SkuColor]"
                           name="SkuColor"
                           truncationRowDisposition="FailComponent" />
                       </outputColumns>
                       <externalMetadataColumns
                         isUsed="True">
                         <externalMetadataColumn
-                          refId="Package\SkuColor\LOAD TO INSKEWX TEMP\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CWDCode]"
+                          refId="Package\SkuColor\LOAD TO INSKEWX TEMP\MAPS SkuColor.Outputs[OLE DB Source Output].ExternalColumns[CWDCode]"
                           codePage="1252"
                           dataType="str"
                           length="4"
                           name="CWDCode" />
                         <externalMetadataColumn
-                          refId="Package\SkuColor\LOAD TO INSKEWX TEMP\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[SkuColor]"
+                          refId="Package\SkuColor\LOAD TO INSKEWX TEMP\MAPS SkuColor.Outputs[OLE DB Source Output].ExternalColumns[SkuColor]"
                           codePage="1252"
                           dataType="str"
                           length="50"
@@ -1077,34 +1203,34 @@ FROM [SkuColor]</property>
                       </externalMetadataColumns>
                     </output>
                     <output
-                      refId="Package\SkuColor\LOAD TO INSKEWX TEMP\OLE DB Source.Outputs[OLE DB Source Error Output]"
+                      refId="Package\SkuColor\LOAD TO INSKEWX TEMP\MAPS SkuColor.Outputs[OLE DB Source Error Output]"
                       isErrorOut="true"
                       name="OLE DB Source Error Output">
                       <outputColumns>
                         <outputColumn
-                          refId="Package\SkuColor\LOAD TO INSKEWX TEMP\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[SkuColor]"
+                          refId="Package\SkuColor\LOAD TO INSKEWX TEMP\MAPS SkuColor.Outputs[OLE DB Source Error Output].Columns[SkuColor]"
                           codePage="1252"
                           dataType="str"
                           length="50"
-                          lineageId="Package\SkuColor\LOAD TO INSKEWX TEMP\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[SkuColor]"
+                          lineageId="Package\SkuColor\LOAD TO INSKEWX TEMP\MAPS SkuColor.Outputs[OLE DB Source Error Output].Columns[SkuColor]"
                           name="SkuColor" />
                         <outputColumn
-                          refId="Package\SkuColor\LOAD TO INSKEWX TEMP\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CWDCode]"
+                          refId="Package\SkuColor\LOAD TO INSKEWX TEMP\MAPS SkuColor.Outputs[OLE DB Source Error Output].Columns[CWDCode]"
                           codePage="1252"
                           dataType="str"
                           length="4"
-                          lineageId="Package\SkuColor\LOAD TO INSKEWX TEMP\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CWDCode]"
+                          lineageId="Package\SkuColor\LOAD TO INSKEWX TEMP\MAPS SkuColor.Outputs[OLE DB Source Error Output].Columns[CWDCode]"
                           name="CWDCode" />
                         <outputColumn
-                          refId="Package\SkuColor\LOAD TO INSKEWX TEMP\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          refId="Package\SkuColor\LOAD TO INSKEWX TEMP\MAPS SkuColor.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
                           dataType="i4"
-                          lineageId="Package\SkuColor\LOAD TO INSKEWX TEMP\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          lineageId="Package\SkuColor\LOAD TO INSKEWX TEMP\MAPS SkuColor.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
                           name="ErrorCode"
                           specialFlags="1" />
                         <outputColumn
-                          refId="Package\SkuColor\LOAD TO INSKEWX TEMP\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          refId="Package\SkuColor\LOAD TO INSKEWX TEMP\MAPS SkuColor.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
                           dataType="i4"
-                          lineageId="Package\SkuColor\LOAD TO INSKEWX TEMP\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          lineageId="Package\SkuColor\LOAD TO INSKEWX TEMP\MAPS SkuColor.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
                           name="ErrorColumn"
                           specialFlags="2" />
                       </outputColumns>
@@ -1116,9 +1242,9 @@ FROM [SkuColor]</property>
               <paths>
                 <path
                   refId="Package\SkuColor\LOAD TO INSKEWX TEMP.Paths[OLE DB Source Output]"
-                  endId="Package\SkuColor\LOAD TO INSKEWX TEMP\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  endId="Package\SkuColor\LOAD TO INSKEWX TEMP\CWD temp_INSKEWX.Inputs[OLE DB Destination Input]"
                   name="OLE DB Source Output"
-                  startId="Package\SkuColor\LOAD TO INSKEWX TEMP\OLE DB Source.Outputs[OLE DB Source Output]" />
+                  startId="Package\SkuColor\LOAD TO INSKEWX TEMP\MAPS SkuColor.Outputs[OLE DB Source Output]" />
               </paths>
             </pipeline>
           </DTS:ObjectData>
@@ -1304,7 +1430,8 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
               SQLTask:Connection="{7D92FDC8-3950-44F3-9631-8EF724AEBF5B}"
-              SQLTask:SqlStatementSource="create table colltdata.temp_INSKEO  like CWMUDTA.INSKEO" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+              SQLTask:SqlStmtSourceType="Variable"
+              SQLTask:SqlStatementSource="User::Query_CreateTemp_INSKEO" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
           </DTS:ObjectData>
         </DTS:Executable>
         <DTS:Executable
@@ -1321,7 +1448,8 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
               SQLTask:Connection="{7D92FDC8-3950-44F3-9631-8EF724AEBF5B}"
-              SQLTask:SqlStatementSource="CREATE TABLE colltdata.temp_INSKEOX  like colltdata.INSKEOX" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+              SQLTask:SqlStmtSourceType="Variable"
+              SQLTask:SqlStatementSource="User::Query_CreateTemp_INSKEOX" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
           </DTS:ObjectData>
         </DTS:Executable>
         <DTS:Executable
@@ -1411,11 +1539,11 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
               version="1">
               <components>
                 <component
-                  refId="Package\SkuDesign\LOAD TO INSKEO TEMP\OLE DB Destination"
+                  refId="Package\SkuDesign\LOAD TO INSKEO TEMP\CWD INSKEO"
                   componentClassID="DTSAdapter.OLEDBDestination.3"
                   contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
                   description="OLE DB Destination"
-                  name="OLE DB Destination"
+                  name="CWD INSKEO"
                   usesDispositions="true"
                   validateExternalMetadata="False"
                   version="4">
@@ -1469,7 +1597,7 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
                   </properties>
                   <connections>
                     <connection
-                      refId="Package\SkuDesign\LOAD TO INSKEO TEMP\OLE DB Destination.Connections[OleDbConnection]"
+                      refId="Package\SkuDesign\LOAD TO INSKEO TEMP\CWD INSKEO.Connections[OleDbConnection]"
                       connectionManagerID="Package.ConnectionManagers[CWD_OLE]"
                       connectionManagerRefId="Package.ConnectionManagers[CWD_OLE]"
                       description="The OLE DB runtime connection used to access the database."
@@ -1477,39 +1605,39 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
                   </connections>
                   <inputs>
                     <input
-                      refId="Package\SkuDesign\LOAD TO INSKEO TEMP\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                      refId="Package\SkuDesign\LOAD TO INSKEO TEMP\CWD INSKEO.Inputs[OLE DB Destination Input]"
                       errorOrTruncationOperation="Insert"
                       errorRowDisposition="FailComponent"
                       hasSideEffects="true"
                       name="OLE DB Destination Input">
                       <inputColumns>
                         <inputColumn
-                          refId="Package\SkuDesign\LOAD TO INSKEO TEMP\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[CWDCode]"
+                          refId="Package\SkuDesign\LOAD TO INSKEO TEMP\CWD INSKEO.Inputs[OLE DB Destination Input].Columns[CWDCode]"
                           cachedCodepage="1252"
                           cachedDataType="str"
                           cachedLength="4"
                           cachedName="CWDCode"
-                          externalMetadataColumnId="Package\SkuDesign\LOAD TO INSKEO TEMP\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[B6GUCD]"
-                          lineageId="Package\SkuDesign\LOAD TO INSKEO TEMP\OLE DB Source.Outputs[OLE DB Source Output].Columns[CWDCode]" />
+                          externalMetadataColumnId="Package\SkuDesign\LOAD TO INSKEO TEMP\CWD INSKEO.Inputs[OLE DB Destination Input].ExternalColumns[B6GUCD]"
+                          lineageId="Package\SkuDesign\LOAD TO INSKEO TEMP\MAPS SkuDesign.Outputs[OLE DB Source Output].Columns[CWDCode]" />
                         <inputColumn
-                          refId="Package\SkuDesign\LOAD TO INSKEO TEMP\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[SkuDesign]"
+                          refId="Package\SkuDesign\LOAD TO INSKEO TEMP\CWD INSKEO.Inputs[OLE DB Destination Input].Columns[TruncatedSkuDesign]"
                           cachedCodepage="1252"
                           cachedDataType="str"
                           cachedLength="10"
-                          cachedName="SkuDesign"
-                          externalMetadataColumnId="Package\SkuDesign\LOAD TO INSKEO TEMP\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[B6B7TX]"
-                          lineageId="Package\SkuDesign\LOAD TO INSKEO TEMP\OLE DB Source.Outputs[OLE DB Source Output].Columns[SkuDesign]" />
+                          cachedName="TruncatedSkuDesign"
+                          externalMetadataColumnId="Package\SkuDesign\LOAD TO INSKEO TEMP\CWD INSKEO.Inputs[OLE DB Destination Input].ExternalColumns[B6B7TX]"
+                          lineageId="Package\SkuDesign\LOAD TO INSKEO TEMP\Truncate SkuDesign down to 10.Outputs[Derived Column Output].Columns[TruncatedSkuDesign]" />
                       </inputColumns>
                       <externalMetadataColumns
                         isUsed="True">
                         <externalMetadataColumn
-                          refId="Package\SkuDesign\LOAD TO INSKEO TEMP\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[B6GUCD]"
+                          refId="Package\SkuDesign\LOAD TO INSKEO TEMP\CWD INSKEO.Inputs[OLE DB Destination Input].ExternalColumns[B6GUCD]"
                           codePage="1252"
                           dataType="str"
                           length="4"
                           name="B6GUCD" />
                         <externalMetadataColumn
-                          refId="Package\SkuDesign\LOAD TO INSKEO TEMP\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[B6B7TX]"
+                          refId="Package\SkuDesign\LOAD TO INSKEO TEMP\CWD INSKEO.Inputs[OLE DB Destination Input].ExternalColumns[B6B7TX]"
                           codePage="1252"
                           dataType="str"
                           length="10"
@@ -1519,22 +1647,22 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
                   </inputs>
                   <outputs>
                     <output
-                      refId="Package\SkuDesign\LOAD TO INSKEO TEMP\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                      refId="Package\SkuDesign\LOAD TO INSKEO TEMP\CWD INSKEO.Outputs[OLE DB Destination Error Output]"
                       exclusionGroup="1"
                       isErrorOut="true"
                       name="OLE DB Destination Error Output"
-                      synchronousInputId="Package\SkuDesign\LOAD TO INSKEO TEMP\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                      synchronousInputId="Package\SkuDesign\LOAD TO INSKEO TEMP\CWD INSKEO.Inputs[OLE DB Destination Input]">
                       <outputColumns>
                         <outputColumn
-                          refId="Package\SkuDesign\LOAD TO INSKEO TEMP\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          refId="Package\SkuDesign\LOAD TO INSKEO TEMP\CWD INSKEO.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
                           dataType="i4"
-                          lineageId="Package\SkuDesign\LOAD TO INSKEO TEMP\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          lineageId="Package\SkuDesign\LOAD TO INSKEO TEMP\CWD INSKEO.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
                           name="ErrorCode"
                           specialFlags="1" />
                         <outputColumn
-                          refId="Package\SkuDesign\LOAD TO INSKEO TEMP\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          refId="Package\SkuDesign\LOAD TO INSKEO TEMP\CWD INSKEO.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
                           dataType="i4"
-                          lineageId="Package\SkuDesign\LOAD TO INSKEO TEMP\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          lineageId="Package\SkuDesign\LOAD TO INSKEO TEMP\CWD INSKEO.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
                           name="ErrorColumn"
                           specialFlags="2" />
                       </outputColumns>
@@ -1543,11 +1671,11 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
                   </outputs>
                 </component>
                 <component
-                  refId="Package\SkuDesign\LOAD TO INSKEO TEMP\OLE DB Source"
+                  refId="Package\SkuDesign\LOAD TO INSKEO TEMP\MAPS SkuDesign"
                   componentClassID="DTSAdapter.OLEDBSource.3"
                   contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
                   description="OLE DB Source"
-                  name="OLE DB Source"
+                  name="MAPS SkuDesign"
                   usesDispositions="true"
                   validateExternalMetadata="False"
                   version="7">
@@ -1573,7 +1701,7 @@ FROM [SkuDesign]</property>
                     <property
                       dataType="System.String"
                       description="The variable that contains the SQL command to be executed."
-                      name="SqlCommandVariable"></property>
+                      name="SqlCommandVariable">User::Query_Selelct_SkuDesign</property>
                     <property
                       dataType="System.Int32"
                       description="Specifies the column code page to use when code page information is unavailable from the data source."
@@ -1586,7 +1714,7 @@ FROM [SkuDesign]</property>
                       dataType="System.Int32"
                       description="Specifies the mode used to access the database."
                       name="AccessMode"
-                      typeConverter="AccessMode">2</property>
+                      typeConverter="AccessMode">3</property>
                     <property
                       dataType="System.String"
                       description="The mappings between the parameters in the SQL command and variables."
@@ -1594,7 +1722,7 @@ FROM [SkuDesign]</property>
                   </properties>
                   <connections>
                     <connection
-                      refId="Package\SkuDesign\LOAD TO INSKEO TEMP\OLE DB Source.Connections[OleDbConnection]"
+                      refId="Package\SkuDesign\LOAD TO INSKEO TEMP\MAPS SkuDesign.Connections[OleDbConnection]"
                       connectionManagerID="Package.ConnectionManagers[MAPS OLE]"
                       connectionManagerRefId="Package.ConnectionManagers[MAPS OLE]"
                       description="The OLE DB runtime connection used to access the database."
@@ -1602,42 +1730,42 @@ FROM [SkuDesign]</property>
                   </connections>
                   <outputs>
                     <output
-                      refId="Package\SkuDesign\LOAD TO INSKEO TEMP\OLE DB Source.Outputs[OLE DB Source Output]"
+                      refId="Package\SkuDesign\LOAD TO INSKEO TEMP\MAPS SkuDesign.Outputs[OLE DB Source Output]"
                       name="OLE DB Source Output">
                       <outputColumns>
                         <outputColumn
-                          refId="Package\SkuDesign\LOAD TO INSKEO TEMP\OLE DB Source.Outputs[OLE DB Source Output].Columns[CWDCode]"
+                          refId="Package\SkuDesign\LOAD TO INSKEO TEMP\MAPS SkuDesign.Outputs[OLE DB Source Output].Columns[CWDCode]"
                           codePage="1252"
                           dataType="str"
                           errorOrTruncationOperation="Conversion"
                           errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\SkuDesign\LOAD TO INSKEO TEMP\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CWDCode]"
+                          externalMetadataColumnId="Package\SkuDesign\LOAD TO INSKEO TEMP\MAPS SkuDesign.Outputs[OLE DB Source Output].ExternalColumns[CWDCode]"
                           length="4"
-                          lineageId="Package\SkuDesign\LOAD TO INSKEO TEMP\OLE DB Source.Outputs[OLE DB Source Output].Columns[CWDCode]"
+                          lineageId="Package\SkuDesign\LOAD TO INSKEO TEMP\MAPS SkuDesign.Outputs[OLE DB Source Output].Columns[CWDCode]"
                           name="CWDCode"
                           truncationRowDisposition="FailComponent" />
                         <outputColumn
-                          refId="Package\SkuDesign\LOAD TO INSKEO TEMP\OLE DB Source.Outputs[OLE DB Source Output].Columns[SkuDesign]"
+                          refId="Package\SkuDesign\LOAD TO INSKEO TEMP\MAPS SkuDesign.Outputs[OLE DB Source Output].Columns[SkuDesign]"
                           codePage="1252"
                           dataType="str"
                           errorOrTruncationOperation="Conversion"
                           errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\SkuDesign\LOAD TO INSKEO TEMP\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[SkuDesign]"
-                          length="10"
-                          lineageId="Package\SkuDesign\LOAD TO INSKEO TEMP\OLE DB Source.Outputs[OLE DB Source Output].Columns[SkuDesign]"
+                          externalMetadataColumnId="Package\SkuDesign\LOAD TO INSKEO TEMP\MAPS SkuDesign.Outputs[OLE DB Source Output].ExternalColumns[SkuDesign]"
+                          length="8000"
+                          lineageId="Package\SkuDesign\LOAD TO INSKEO TEMP\MAPS SkuDesign.Outputs[OLE DB Source Output].Columns[SkuDesign]"
                           name="SkuDesign"
-                          truncationRowDisposition="IgnoreFailure" />
+                          truncationRowDisposition="FailComponent" />
                       </outputColumns>
                       <externalMetadataColumns
                         isUsed="True">
                         <externalMetadataColumn
-                          refId="Package\SkuDesign\LOAD TO INSKEO TEMP\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CWDCode]"
+                          refId="Package\SkuDesign\LOAD TO INSKEO TEMP\MAPS SkuDesign.Outputs[OLE DB Source Output].ExternalColumns[CWDCode]"
                           codePage="1252"
                           dataType="str"
                           length="4"
                           name="CWDCode" />
                         <externalMetadataColumn
-                          refId="Package\SkuDesign\LOAD TO INSKEO TEMP\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[SkuDesign]"
+                          refId="Package\SkuDesign\LOAD TO INSKEO TEMP\MAPS SkuDesign.Outputs[OLE DB Source Output].ExternalColumns[SkuDesign]"
                           codePage="1252"
                           dataType="str"
                           length="8000"
@@ -1645,34 +1773,118 @@ FROM [SkuDesign]</property>
                       </externalMetadataColumns>
                     </output>
                     <output
-                      refId="Package\SkuDesign\LOAD TO INSKEO TEMP\OLE DB Source.Outputs[OLE DB Source Error Output]"
+                      refId="Package\SkuDesign\LOAD TO INSKEO TEMP\MAPS SkuDesign.Outputs[OLE DB Source Error Output]"
                       isErrorOut="true"
                       name="OLE DB Source Error Output">
                       <outputColumns>
                         <outputColumn
-                          refId="Package\SkuDesign\LOAD TO INSKEO TEMP\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[SkuDesign]"
+                          refId="Package\SkuDesign\LOAD TO INSKEO TEMP\MAPS SkuDesign.Outputs[OLE DB Source Error Output].Columns[SkuDesign]"
                           codePage="1252"
                           dataType="str"
                           length="8000"
-                          lineageId="Package\SkuDesign\LOAD TO INSKEO TEMP\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[SkuDesign]"
+                          lineageId="Package\SkuDesign\LOAD TO INSKEO TEMP\MAPS SkuDesign.Outputs[OLE DB Source Error Output].Columns[SkuDesign]"
                           name="SkuDesign" />
                         <outputColumn
-                          refId="Package\SkuDesign\LOAD TO INSKEO TEMP\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CWDCode]"
+                          refId="Package\SkuDesign\LOAD TO INSKEO TEMP\MAPS SkuDesign.Outputs[OLE DB Source Error Output].Columns[CWDCode]"
                           codePage="1252"
                           dataType="str"
                           length="4"
-                          lineageId="Package\SkuDesign\LOAD TO INSKEO TEMP\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CWDCode]"
+                          lineageId="Package\SkuDesign\LOAD TO INSKEO TEMP\MAPS SkuDesign.Outputs[OLE DB Source Error Output].Columns[CWDCode]"
                           name="CWDCode" />
                         <outputColumn
-                          refId="Package\SkuDesign\LOAD TO INSKEO TEMP\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          refId="Package\SkuDesign\LOAD TO INSKEO TEMP\MAPS SkuDesign.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
                           dataType="i4"
-                          lineageId="Package\SkuDesign\LOAD TO INSKEO TEMP\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          lineageId="Package\SkuDesign\LOAD TO INSKEO TEMP\MAPS SkuDesign.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
                           name="ErrorCode"
                           specialFlags="1" />
                         <outputColumn
-                          refId="Package\SkuDesign\LOAD TO INSKEO TEMP\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          refId="Package\SkuDesign\LOAD TO INSKEO TEMP\MAPS SkuDesign.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
                           dataType="i4"
-                          lineageId="Package\SkuDesign\LOAD TO INSKEO TEMP\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          lineageId="Package\SkuDesign\LOAD TO INSKEO TEMP\MAPS SkuDesign.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\SkuDesign\LOAD TO INSKEO TEMP\Truncate SkuDesign down to 10"
+                  componentClassID="DTSTransform.DerivedColumn.3"
+                  contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+                  name="Truncate SkuDesign down to 10"
+                  usesDispositions="true">
+                  <inputs>
+                    <input
+                      refId="Package\SkuDesign\LOAD TO INSKEO TEMP\Truncate SkuDesign down to 10.Inputs[Derived Column Input]"
+                      description="Input to the Derived Column Transformation"
+                      name="Derived Column Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\SkuDesign\LOAD TO INSKEO TEMP\Truncate SkuDesign down to 10.Inputs[Derived Column Input].Columns[SkuDesign]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="8000"
+                          cachedName="SkuDesign"
+                          lineageId="Package\SkuDesign\LOAD TO INSKEO TEMP\MAPS SkuDesign.Outputs[OLE DB Source Output].Columns[SkuDesign]" />
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\SkuDesign\LOAD TO INSKEO TEMP\Truncate SkuDesign down to 10.Outputs[Derived Column Output]"
+                      description="Default Output of the Derived Column Transformation"
+                      exclusionGroup="1"
+                      name="Derived Column Output"
+                      synchronousInputId="Package\SkuDesign\LOAD TO INSKEO TEMP\Truncate SkuDesign down to 10.Inputs[Derived Column Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\SkuDesign\LOAD TO INSKEO TEMP\Truncate SkuDesign down to 10.Outputs[Derived Column Output].Columns[TruncatedSkuDesign]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          length="10"
+                          lineageId="Package\SkuDesign\LOAD TO INSKEO TEMP\Truncate SkuDesign down to 10.Outputs[Derived Column Output].Columns[TruncatedSkuDesign]"
+                          name="TruncatedSkuDesign"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">[SUBSTRING](#{Package\SkuDesign\LOAD TO INSKEO TEMP\MAPS SkuDesign.Outputs[OLE DB Source Output].Columns[SkuDesign]},1,10)</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">SUBSTRING(SkuDesign,1,10)</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\SkuDesign\LOAD TO INSKEO TEMP\Truncate SkuDesign down to 10.Outputs[Derived Column Error Output]"
+                      description="Error Output of the Derived Column Transformation"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Derived Column Error Output"
+                      synchronousInputId="Package\SkuDesign\LOAD TO INSKEO TEMP\Truncate SkuDesign down to 10.Inputs[Derived Column Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\SkuDesign\LOAD TO INSKEO TEMP\Truncate SkuDesign down to 10.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\SkuDesign\LOAD TO INSKEO TEMP\Truncate SkuDesign down to 10.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\SkuDesign\LOAD TO INSKEO TEMP\Truncate SkuDesign down to 10.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\SkuDesign\LOAD TO INSKEO TEMP\Truncate SkuDesign down to 10.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
                           name="ErrorColumn"
                           specialFlags="2" />
                       </outputColumns>
@@ -1683,10 +1895,15 @@ FROM [SkuDesign]</property>
               </components>
               <paths>
                 <path
+                  refId="Package\SkuDesign\LOAD TO INSKEO TEMP.Paths[Derived Column Output]"
+                  endId="Package\SkuDesign\LOAD TO INSKEO TEMP\CWD INSKEO.Inputs[OLE DB Destination Input]"
+                  name="Derived Column Output"
+                  startId="Package\SkuDesign\LOAD TO INSKEO TEMP\Truncate SkuDesign down to 10.Outputs[Derived Column Output]" />
+                <path
                   refId="Package\SkuDesign\LOAD TO INSKEO TEMP.Paths[OLE DB Source Output]"
-                  endId="Package\SkuDesign\LOAD TO INSKEO TEMP\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  endId="Package\SkuDesign\LOAD TO INSKEO TEMP\Truncate SkuDesign down to 10.Inputs[Derived Column Input]"
                   name="OLE DB Source Output"
-                  startId="Package\SkuDesign\LOAD TO INSKEO TEMP\OLE DB Source.Outputs[OLE DB Source Output]" />
+                  startId="Package\SkuDesign\LOAD TO INSKEO TEMP\MAPS SkuDesign.Outputs[OLE DB Source Output]" />
               </paths>
             </pipeline>
           </DTS:ObjectData>
@@ -1706,11 +1923,11 @@ FROM [SkuDesign]</property>
               version="1">
               <components>
                 <component
-                  refId="Package\SkuDesign\LOAD TO INSKEOX TEMP\OLE DB Destination"
+                  refId="Package\SkuDesign\LOAD TO INSKEOX TEMP\CWD temp_INSKEOX"
                   componentClassID="DTSAdapter.OLEDBDestination.3"
                   contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
                   description="OLE DB Destination"
-                  name="OLE DB Destination"
+                  name="CWD temp_INSKEOX"
                   usesDispositions="true"
                   validateExternalMetadata="False"
                   version="4">
@@ -1764,7 +1981,7 @@ FROM [SkuDesign]</property>
                   </properties>
                   <connections>
                     <connection
-                      refId="Package\SkuDesign\LOAD TO INSKEOX TEMP\OLE DB Destination.Connections[OleDbConnection]"
+                      refId="Package\SkuDesign\LOAD TO INSKEOX TEMP\CWD temp_INSKEOX.Connections[OleDbConnection]"
                       connectionManagerID="Package.ConnectionManagers[CWD_OLE]"
                       connectionManagerRefId="Package.ConnectionManagers[CWD_OLE]"
                       description="The OLE DB runtime connection used to access the database."
@@ -1772,39 +1989,39 @@ FROM [SkuDesign]</property>
                   </connections>
                   <inputs>
                     <input
-                      refId="Package\SkuDesign\LOAD TO INSKEOX TEMP\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                      refId="Package\SkuDesign\LOAD TO INSKEOX TEMP\CWD temp_INSKEOX.Inputs[OLE DB Destination Input]"
                       errorOrTruncationOperation="Insert"
                       errorRowDisposition="FailComponent"
                       hasSideEffects="true"
                       name="OLE DB Destination Input">
                       <inputColumns>
                         <inputColumn
-                          refId="Package\SkuDesign\LOAD TO INSKEOX TEMP\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[CWDCode]"
+                          refId="Package\SkuDesign\LOAD TO INSKEOX TEMP\CWD temp_INSKEOX.Inputs[OLE DB Destination Input].Columns[CWDCode]"
                           cachedCodepage="1252"
                           cachedDataType="str"
                           cachedLength="4"
                           cachedName="CWDCode"
-                          externalMetadataColumnId="Package\SkuDesign\LOAD TO INSKEOX TEMP\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[SKU_CODE]"
-                          lineageId="Package\SkuDesign\LOAD TO INSKEOX TEMP\OLE DB Source.Outputs[OLE DB Source Output].Columns[CWDCode]" />
+                          externalMetadataColumnId="Package\SkuDesign\LOAD TO INSKEOX TEMP\CWD temp_INSKEOX.Inputs[OLE DB Destination Input].ExternalColumns[SKU_CODE]"
+                          lineageId="Package\SkuDesign\LOAD TO INSKEOX TEMP\MAPS SkuDesign.Outputs[OLE DB Source Output].Columns[CWDCode]" />
                         <inputColumn
-                          refId="Package\SkuDesign\LOAD TO INSKEOX TEMP\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[SkuDesign]"
+                          refId="Package\SkuDesign\LOAD TO INSKEOX TEMP\CWD temp_INSKEOX.Inputs[OLE DB Destination Input].Columns[TruncatedSkuDesign]"
                           cachedCodepage="1252"
                           cachedDataType="str"
                           cachedLength="50"
-                          cachedName="SkuDesign"
-                          externalMetadataColumnId="Package\SkuDesign\LOAD TO INSKEOX TEMP\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[LONG_DESCRIPTION]"
-                          lineageId="Package\SkuDesign\LOAD TO INSKEOX TEMP\OLE DB Source.Outputs[OLE DB Source Output].Columns[SkuDesign]" />
+                          cachedName="TruncatedSkuDesign"
+                          externalMetadataColumnId="Package\SkuDesign\LOAD TO INSKEOX TEMP\CWD temp_INSKEOX.Inputs[OLE DB Destination Input].ExternalColumns[LONG_DESCRIPTION]"
+                          lineageId="Package\SkuDesign\LOAD TO INSKEOX TEMP\Truncate SkuDesign column from 8000 to 50.Outputs[Derived Column Output].Columns[TruncatedSkuDesign]" />
                       </inputColumns>
                       <externalMetadataColumns
                         isUsed="True">
                         <externalMetadataColumn
-                          refId="Package\SkuDesign\LOAD TO INSKEOX TEMP\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[SKU_CODE]"
+                          refId="Package\SkuDesign\LOAD TO INSKEOX TEMP\CWD temp_INSKEOX.Inputs[OLE DB Destination Input].ExternalColumns[SKU_CODE]"
                           codePage="1252"
                           dataType="str"
                           length="4"
                           name="SKU_CODE" />
                         <externalMetadataColumn
-                          refId="Package\SkuDesign\LOAD TO INSKEOX TEMP\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[LONG_DESCRIPTION]"
+                          refId="Package\SkuDesign\LOAD TO INSKEOX TEMP\CWD temp_INSKEOX.Inputs[OLE DB Destination Input].ExternalColumns[LONG_DESCRIPTION]"
                           codePage="1252"
                           dataType="str"
                           length="50"
@@ -1814,22 +2031,22 @@ FROM [SkuDesign]</property>
                   </inputs>
                   <outputs>
                     <output
-                      refId="Package\SkuDesign\LOAD TO INSKEOX TEMP\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                      refId="Package\SkuDesign\LOAD TO INSKEOX TEMP\CWD temp_INSKEOX.Outputs[OLE DB Destination Error Output]"
                       exclusionGroup="1"
                       isErrorOut="true"
                       name="OLE DB Destination Error Output"
-                      synchronousInputId="Package\SkuDesign\LOAD TO INSKEOX TEMP\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                      synchronousInputId="Package\SkuDesign\LOAD TO INSKEOX TEMP\CWD temp_INSKEOX.Inputs[OLE DB Destination Input]">
                       <outputColumns>
                         <outputColumn
-                          refId="Package\SkuDesign\LOAD TO INSKEOX TEMP\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          refId="Package\SkuDesign\LOAD TO INSKEOX TEMP\CWD temp_INSKEOX.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
                           dataType="i4"
-                          lineageId="Package\SkuDesign\LOAD TO INSKEOX TEMP\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          lineageId="Package\SkuDesign\LOAD TO INSKEOX TEMP\CWD temp_INSKEOX.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
                           name="ErrorCode"
                           specialFlags="1" />
                         <outputColumn
-                          refId="Package\SkuDesign\LOAD TO INSKEOX TEMP\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          refId="Package\SkuDesign\LOAD TO INSKEOX TEMP\CWD temp_INSKEOX.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
                           dataType="i4"
-                          lineageId="Package\SkuDesign\LOAD TO INSKEOX TEMP\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          lineageId="Package\SkuDesign\LOAD TO INSKEOX TEMP\CWD temp_INSKEOX.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
                           name="ErrorColumn"
                           specialFlags="2" />
                       </outputColumns>
@@ -1838,11 +2055,11 @@ FROM [SkuDesign]</property>
                   </outputs>
                 </component>
                 <component
-                  refId="Package\SkuDesign\LOAD TO INSKEOX TEMP\OLE DB Source"
+                  refId="Package\SkuDesign\LOAD TO INSKEOX TEMP\MAPS SkuDesign"
                   componentClassID="DTSAdapter.OLEDBSource.3"
                   contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
                   description="OLE DB Source"
-                  name="OLE DB Source"
+                  name="MAPS SkuDesign"
                   usesDispositions="true"
                   version="7">
                   <properties>
@@ -1867,7 +2084,7 @@ FROM [SkuDesign]</property>
                     <property
                       dataType="System.String"
                       description="The variable that contains the SQL command to be executed."
-                      name="SqlCommandVariable"></property>
+                      name="SqlCommandVariable">User::Query_Selelct_SkuDesign</property>
                     <property
                       dataType="System.Int32"
                       description="Specifies the column code page to use when code page information is unavailable from the data source."
@@ -1880,7 +2097,7 @@ FROM [SkuDesign]</property>
                       dataType="System.Int32"
                       description="Specifies the mode used to access the database."
                       name="AccessMode"
-                      typeConverter="AccessMode">2</property>
+                      typeConverter="AccessMode">3</property>
                     <property
                       dataType="System.String"
                       description="The mappings between the parameters in the SQL command and variables."
@@ -1888,7 +2105,7 @@ FROM [SkuDesign]</property>
                   </properties>
                   <connections>
                     <connection
-                      refId="Package\SkuDesign\LOAD TO INSKEOX TEMP\OLE DB Source.Connections[OleDbConnection]"
+                      refId="Package\SkuDesign\LOAD TO INSKEOX TEMP\MAPS SkuDesign.Connections[OleDbConnection]"
                       connectionManagerID="Package.ConnectionManagers[MAPS OLE]"
                       connectionManagerRefId="Package.ConnectionManagers[MAPS OLE]"
                       description="The OLE DB runtime connection used to access the database."
@@ -1896,42 +2113,42 @@ FROM [SkuDesign]</property>
                   </connections>
                   <outputs>
                     <output
-                      refId="Package\SkuDesign\LOAD TO INSKEOX TEMP\OLE DB Source.Outputs[OLE DB Source Output]"
+                      refId="Package\SkuDesign\LOAD TO INSKEOX TEMP\MAPS SkuDesign.Outputs[OLE DB Source Output]"
                       name="OLE DB Source Output">
                       <outputColumns>
                         <outputColumn
-                          refId="Package\SkuDesign\LOAD TO INSKEOX TEMP\OLE DB Source.Outputs[OLE DB Source Output].Columns[CWDCode]"
+                          refId="Package\SkuDesign\LOAD TO INSKEOX TEMP\MAPS SkuDesign.Outputs[OLE DB Source Output].Columns[CWDCode]"
                           codePage="1252"
                           dataType="str"
                           errorOrTruncationOperation="Conversion"
                           errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\SkuDesign\LOAD TO INSKEOX TEMP\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CWDCode]"
+                          externalMetadataColumnId="Package\SkuDesign\LOAD TO INSKEOX TEMP\MAPS SkuDesign.Outputs[OLE DB Source Output].ExternalColumns[CWDCode]"
                           length="4"
-                          lineageId="Package\SkuDesign\LOAD TO INSKEOX TEMP\OLE DB Source.Outputs[OLE DB Source Output].Columns[CWDCode]"
+                          lineageId="Package\SkuDesign\LOAD TO INSKEOX TEMP\MAPS SkuDesign.Outputs[OLE DB Source Output].Columns[CWDCode]"
                           name="CWDCode"
                           truncationRowDisposition="FailComponent" />
                         <outputColumn
-                          refId="Package\SkuDesign\LOAD TO INSKEOX TEMP\OLE DB Source.Outputs[OLE DB Source Output].Columns[SkuDesign]"
+                          refId="Package\SkuDesign\LOAD TO INSKEOX TEMP\MAPS SkuDesign.Outputs[OLE DB Source Output].Columns[SkuDesign]"
                           codePage="1252"
                           dataType="str"
                           errorOrTruncationOperation="Conversion"
                           errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\SkuDesign\LOAD TO INSKEOX TEMP\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[SkuDesign]"
-                          length="50"
-                          lineageId="Package\SkuDesign\LOAD TO INSKEOX TEMP\OLE DB Source.Outputs[OLE DB Source Output].Columns[SkuDesign]"
+                          externalMetadataColumnId="Package\SkuDesign\LOAD TO INSKEOX TEMP\MAPS SkuDesign.Outputs[OLE DB Source Output].ExternalColumns[SkuDesign]"
+                          length="8000"
+                          lineageId="Package\SkuDesign\LOAD TO INSKEOX TEMP\MAPS SkuDesign.Outputs[OLE DB Source Output].Columns[SkuDesign]"
                           name="SkuDesign"
                           truncationRowDisposition="IgnoreFailure" />
                       </outputColumns>
                       <externalMetadataColumns
                         isUsed="True">
                         <externalMetadataColumn
-                          refId="Package\SkuDesign\LOAD TO INSKEOX TEMP\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CWDCode]"
+                          refId="Package\SkuDesign\LOAD TO INSKEOX TEMP\MAPS SkuDesign.Outputs[OLE DB Source Output].ExternalColumns[CWDCode]"
                           codePage="1252"
                           dataType="str"
                           length="4"
                           name="CWDCode" />
                         <externalMetadataColumn
-                          refId="Package\SkuDesign\LOAD TO INSKEOX TEMP\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[SkuDesign]"
+                          refId="Package\SkuDesign\LOAD TO INSKEOX TEMP\MAPS SkuDesign.Outputs[OLE DB Source Output].ExternalColumns[SkuDesign]"
                           codePage="1252"
                           dataType="str"
                           length="8000"
@@ -1939,34 +2156,118 @@ FROM [SkuDesign]</property>
                       </externalMetadataColumns>
                     </output>
                     <output
-                      refId="Package\SkuDesign\LOAD TO INSKEOX TEMP\OLE DB Source.Outputs[OLE DB Source Error Output]"
+                      refId="Package\SkuDesign\LOAD TO INSKEOX TEMP\MAPS SkuDesign.Outputs[OLE DB Source Error Output]"
                       isErrorOut="true"
                       name="OLE DB Source Error Output">
                       <outputColumns>
                         <outputColumn
-                          refId="Package\SkuDesign\LOAD TO INSKEOX TEMP\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[SkuDesign]"
+                          refId="Package\SkuDesign\LOAD TO INSKEOX TEMP\MAPS SkuDesign.Outputs[OLE DB Source Error Output].Columns[SkuDesign]"
                           codePage="1252"
                           dataType="str"
                           length="8000"
-                          lineageId="Package\SkuDesign\LOAD TO INSKEOX TEMP\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[SkuDesign]"
+                          lineageId="Package\SkuDesign\LOAD TO INSKEOX TEMP\MAPS SkuDesign.Outputs[OLE DB Source Error Output].Columns[SkuDesign]"
                           name="SkuDesign" />
                         <outputColumn
-                          refId="Package\SkuDesign\LOAD TO INSKEOX TEMP\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CWDCode]"
+                          refId="Package\SkuDesign\LOAD TO INSKEOX TEMP\MAPS SkuDesign.Outputs[OLE DB Source Error Output].Columns[CWDCode]"
                           codePage="1252"
                           dataType="str"
                           length="4"
-                          lineageId="Package\SkuDesign\LOAD TO INSKEOX TEMP\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CWDCode]"
+                          lineageId="Package\SkuDesign\LOAD TO INSKEOX TEMP\MAPS SkuDesign.Outputs[OLE DB Source Error Output].Columns[CWDCode]"
                           name="CWDCode" />
                         <outputColumn
-                          refId="Package\SkuDesign\LOAD TO INSKEOX TEMP\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          refId="Package\SkuDesign\LOAD TO INSKEOX TEMP\MAPS SkuDesign.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
                           dataType="i4"
-                          lineageId="Package\SkuDesign\LOAD TO INSKEOX TEMP\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          lineageId="Package\SkuDesign\LOAD TO INSKEOX TEMP\MAPS SkuDesign.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
                           name="ErrorCode"
                           specialFlags="1" />
                         <outputColumn
-                          refId="Package\SkuDesign\LOAD TO INSKEOX TEMP\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          refId="Package\SkuDesign\LOAD TO INSKEOX TEMP\MAPS SkuDesign.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
                           dataType="i4"
-                          lineageId="Package\SkuDesign\LOAD TO INSKEOX TEMP\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          lineageId="Package\SkuDesign\LOAD TO INSKEOX TEMP\MAPS SkuDesign.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\SkuDesign\LOAD TO INSKEOX TEMP\Truncate SkuDesign column from 8000 to 50"
+                  componentClassID="DTSTransform.DerivedColumn.3"
+                  contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+                  name="Truncate SkuDesign column from 8000 to 50"
+                  usesDispositions="true">
+                  <inputs>
+                    <input
+                      refId="Package\SkuDesign\LOAD TO INSKEOX TEMP\Truncate SkuDesign column from 8000 to 50.Inputs[Derived Column Input]"
+                      description="Input to the Derived Column Transformation"
+                      name="Derived Column Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\SkuDesign\LOAD TO INSKEOX TEMP\Truncate SkuDesign column from 8000 to 50.Inputs[Derived Column Input].Columns[SkuDesign]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="8000"
+                          cachedName="SkuDesign"
+                          lineageId="Package\SkuDesign\LOAD TO INSKEOX TEMP\MAPS SkuDesign.Outputs[OLE DB Source Output].Columns[SkuDesign]" />
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\SkuDesign\LOAD TO INSKEOX TEMP\Truncate SkuDesign column from 8000 to 50.Outputs[Derived Column Output]"
+                      description="Default Output of the Derived Column Transformation"
+                      exclusionGroup="1"
+                      name="Derived Column Output"
+                      synchronousInputId="Package\SkuDesign\LOAD TO INSKEOX TEMP\Truncate SkuDesign column from 8000 to 50.Inputs[Derived Column Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\SkuDesign\LOAD TO INSKEOX TEMP\Truncate SkuDesign column from 8000 to 50.Outputs[Derived Column Output].Columns[TruncatedSkuDesign]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          length="50"
+                          lineageId="Package\SkuDesign\LOAD TO INSKEOX TEMP\Truncate SkuDesign column from 8000 to 50.Outputs[Derived Column Output].Columns[TruncatedSkuDesign]"
+                          name="TruncatedSkuDesign"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">[SUBSTRING](#{Package\SkuDesign\LOAD TO INSKEOX TEMP\MAPS SkuDesign.Outputs[OLE DB Source Output].Columns[SkuDesign]},1,50)</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">SUBSTRING(SkuDesign,1,50)</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\SkuDesign\LOAD TO INSKEOX TEMP\Truncate SkuDesign column from 8000 to 50.Outputs[Derived Column Error Output]"
+                      description="Error Output of the Derived Column Transformation"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Derived Column Error Output"
+                      synchronousInputId="Package\SkuDesign\LOAD TO INSKEOX TEMP\Truncate SkuDesign column from 8000 to 50.Inputs[Derived Column Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\SkuDesign\LOAD TO INSKEOX TEMP\Truncate SkuDesign column from 8000 to 50.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\SkuDesign\LOAD TO INSKEOX TEMP\Truncate SkuDesign column from 8000 to 50.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\SkuDesign\LOAD TO INSKEOX TEMP\Truncate SkuDesign column from 8000 to 50.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\SkuDesign\LOAD TO INSKEOX TEMP\Truncate SkuDesign column from 8000 to 50.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
                           name="ErrorColumn"
                           specialFlags="2" />
                       </outputColumns>
@@ -1977,10 +2278,15 @@ FROM [SkuDesign]</property>
               </components>
               <paths>
                 <path
+                  refId="Package\SkuDesign\LOAD TO INSKEOX TEMP.Paths[Derived Column Output]"
+                  endId="Package\SkuDesign\LOAD TO INSKEOX TEMP\CWD temp_INSKEOX.Inputs[OLE DB Destination Input]"
+                  name="Derived Column Output"
+                  startId="Package\SkuDesign\LOAD TO INSKEOX TEMP\Truncate SkuDesign column from 8000 to 50.Outputs[Derived Column Output]" />
+                <path
                   refId="Package\SkuDesign\LOAD TO INSKEOX TEMP.Paths[OLE DB Source Output]"
-                  endId="Package\SkuDesign\LOAD TO INSKEOX TEMP\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  endId="Package\SkuDesign\LOAD TO INSKEOX TEMP\Truncate SkuDesign column from 8000 to 50.Inputs[Derived Column Input]"
                   name="OLE DB Source Output"
-                  startId="Package\SkuDesign\LOAD TO INSKEOX TEMP\OLE DB Source.Outputs[OLE DB Source Output]" />
+                  startId="Package\SkuDesign\LOAD TO INSKEOX TEMP\MAPS SkuDesign.Outputs[OLE DB Source Output]" />
               </paths>
             </pipeline>
           </DTS:ObjectData>
@@ -2166,7 +2472,8 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
               SQLTask:Connection="{7D92FDC8-3950-44F3-9631-8EF724AEBF5B}"
-              SQLTask:SqlStatementSource="create table colltdata.temp_INSKET  like CWMUDTA.INSKET" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+              SQLTask:SqlStmtSourceType="Variable"
+              SQLTask:SqlStatementSource="User::Query_CreateTemp_INSKET" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
           </DTS:ObjectData>
         </DTS:Executable>
         <DTS:Executable
@@ -2183,7 +2490,8 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
               SQLTask:Connection="{7D92FDC8-3950-44F3-9631-8EF724AEBF5B}"
-              SQLTask:SqlStatementSource="create table colltdata.temp_INSKETX  like colltdata.INSKETX" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+              SQLTask:SqlStmtSourceType="Variable"
+              SQLTask:SqlStatementSource="User::Query_CreateTemp_INSKETX" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
           </DTS:ObjectData>
         </DTS:Executable>
         <DTS:Executable
@@ -2273,11 +2581,11 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
               version="1">
               <components>
                 <component
-                  refId="Package\SkuSize\LOAD TO INSKET TEMP\OLE DB Destination"
+                  refId="Package\SkuSize\LOAD TO INSKET TEMP\CWD temp_INSKET"
                   componentClassID="DTSAdapter.OLEDBDestination.3"
                   contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
                   description="OLE DB Destination"
-                  name="OLE DB Destination"
+                  name="CWD temp_INSKET"
                   usesDispositions="true"
                   validateExternalMetadata="False"
                   version="4">
@@ -2331,7 +2639,7 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
                   </properties>
                   <connections>
                     <connection
-                      refId="Package\SkuSize\LOAD TO INSKET TEMP\OLE DB Destination.Connections[OleDbConnection]"
+                      refId="Package\SkuSize\LOAD TO INSKET TEMP\CWD temp_INSKET.Connections[OleDbConnection]"
                       connectionManagerID="Package.ConnectionManagers[CWD_OLE]"
                       connectionManagerRefId="Package.ConnectionManagers[CWD_OLE]"
                       description="The OLE DB runtime connection used to access the database."
@@ -2339,39 +2647,38 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
                   </connections>
                   <inputs>
                     <input
-                      refId="Package\SkuSize\LOAD TO INSKET TEMP\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                      refId="Package\SkuSize\LOAD TO INSKET TEMP\CWD temp_INSKET.Inputs[OLE DB Destination Input]"
                       errorOrTruncationOperation="Insert"
                       errorRowDisposition="IgnoreFailure"
                       hasSideEffects="true"
                       name="OLE DB Destination Input">
                       <inputColumns>
                         <inputColumn
-                          refId="Package\SkuSize\LOAD TO INSKET TEMP\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[CWDCode]"
+                          refId="Package\SkuSize\LOAD TO INSKET TEMP\CWD temp_INSKET.Inputs[OLE DB Destination Input].Columns[CWDCode]"
                           cachedCodepage="1252"
                           cachedDataType="str"
                           cachedLength="4"
                           cachedName="CWDCode"
-                          externalMetadataColumnId="Package\SkuSize\LOAD TO INSKET TEMP\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[B8GWCD]"
-                          lineageId="Package\SkuSize\LOAD TO INSKET TEMP\OLE DB Source.Outputs[OLE DB Source Output].Columns[CWDCode]" />
+                          externalMetadataColumnId="Package\SkuSize\LOAD TO INSKET TEMP\CWD temp_INSKET.Inputs[OLE DB Destination Input].ExternalColumns[B8GWCD]"
+                          lineageId="Package\SkuSize\LOAD TO INSKET TEMP\MAPS - SkuSize.Outputs[OLE DB Source Output].Columns[CWDCode]" />
                         <inputColumn
-                          refId="Package\SkuSize\LOAD TO INSKET TEMP\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[SkuSize]"
-                          cachedCodepage="1252"
-                          cachedDataType="str"
+                          refId="Package\SkuSize\LOAD TO INSKET TEMP\CWD temp_INSKET.Inputs[OLE DB Destination Input].Columns[TruncatedSkuSize]"
+                          cachedDataType="wstr"
                           cachedLength="10"
-                          cachedName="SkuSize"
-                          externalMetadataColumnId="Package\SkuSize\LOAD TO INSKET TEMP\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[B8B9TX]"
-                          lineageId="Package\SkuSize\LOAD TO INSKET TEMP\OLE DB Source.Outputs[OLE DB Source Output].Columns[SkuSize]" />
+                          cachedName="TruncatedSkuSize"
+                          externalMetadataColumnId="Package\SkuSize\LOAD TO INSKET TEMP\CWD temp_INSKET.Inputs[OLE DB Destination Input].ExternalColumns[B8B9TX]"
+                          lineageId="Package\SkuSize\LOAD TO INSKET TEMP\Truncate SkuSize column to fit CWD database length.Outputs[Derived Column Output].Columns[TruncatedSkuSize]" />
                       </inputColumns>
                       <externalMetadataColumns
                         isUsed="True">
                         <externalMetadataColumn
-                          refId="Package\SkuSize\LOAD TO INSKET TEMP\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[B8GWCD]"
+                          refId="Package\SkuSize\LOAD TO INSKET TEMP\CWD temp_INSKET.Inputs[OLE DB Destination Input].ExternalColumns[B8GWCD]"
                           codePage="1252"
                           dataType="str"
                           length="4"
                           name="B8GWCD" />
                         <externalMetadataColumn
-                          refId="Package\SkuSize\LOAD TO INSKET TEMP\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[B8B9TX]"
+                          refId="Package\SkuSize\LOAD TO INSKET TEMP\CWD temp_INSKET.Inputs[OLE DB Destination Input].ExternalColumns[B8B9TX]"
                           codePage="1252"
                           dataType="str"
                           length="10"
@@ -2381,22 +2688,22 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
                   </inputs>
                   <outputs>
                     <output
-                      refId="Package\SkuSize\LOAD TO INSKET TEMP\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                      refId="Package\SkuSize\LOAD TO INSKET TEMP\CWD temp_INSKET.Outputs[OLE DB Destination Error Output]"
                       exclusionGroup="1"
                       isErrorOut="true"
                       name="OLE DB Destination Error Output"
-                      synchronousInputId="Package\SkuSize\LOAD TO INSKET TEMP\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                      synchronousInputId="Package\SkuSize\LOAD TO INSKET TEMP\CWD temp_INSKET.Inputs[OLE DB Destination Input]">
                       <outputColumns>
                         <outputColumn
-                          refId="Package\SkuSize\LOAD TO INSKET TEMP\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          refId="Package\SkuSize\LOAD TO INSKET TEMP\CWD temp_INSKET.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
                           dataType="i4"
-                          lineageId="Package\SkuSize\LOAD TO INSKET TEMP\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          lineageId="Package\SkuSize\LOAD TO INSKET TEMP\CWD temp_INSKET.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
                           name="ErrorCode"
                           specialFlags="1" />
                         <outputColumn
-                          refId="Package\SkuSize\LOAD TO INSKET TEMP\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          refId="Package\SkuSize\LOAD TO INSKET TEMP\CWD temp_INSKET.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
                           dataType="i4"
-                          lineageId="Package\SkuSize\LOAD TO INSKET TEMP\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          lineageId="Package\SkuSize\LOAD TO INSKET TEMP\CWD temp_INSKET.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
                           name="ErrorColumn"
                           specialFlags="2" />
                       </outputColumns>
@@ -2405,11 +2712,11 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
                   </outputs>
                 </component>
                 <component
-                  refId="Package\SkuSize\LOAD TO INSKET TEMP\OLE DB Source"
+                  refId="Package\SkuSize\LOAD TO INSKET TEMP\MAPS - SkuSize"
                   componentClassID="DTSAdapter.OLEDBSource.3"
                   contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
                   description="OLE DB Source"
-                  name="OLE DB Source"
+                  name="MAPS - SkuSize"
                   usesDispositions="true"
                   validateExternalMetadata="False"
                   version="7">
@@ -2435,7 +2742,7 @@ FROM [SkuSize]</property>
                     <property
                       dataType="System.String"
                       description="The variable that contains the SQL command to be executed."
-                      name="SqlCommandVariable"></property>
+                      name="SqlCommandVariable">User::Query_Select_SkuSize</property>
                     <property
                       dataType="System.Int32"
                       description="Specifies the column code page to use when code page information is unavailable from the data source."
@@ -2448,7 +2755,7 @@ FROM [SkuSize]</property>
                       dataType="System.Int32"
                       description="Specifies the mode used to access the database."
                       name="AccessMode"
-                      typeConverter="AccessMode">2</property>
+                      typeConverter="AccessMode">3</property>
                     <property
                       dataType="System.String"
                       description="The mappings between the parameters in the SQL command and variables."
@@ -2456,7 +2763,7 @@ FROM [SkuSize]</property>
                   </properties>
                   <connections>
                     <connection
-                      refId="Package\SkuSize\LOAD TO INSKET TEMP\OLE DB Source.Connections[OleDbConnection]"
+                      refId="Package\SkuSize\LOAD TO INSKET TEMP\MAPS - SkuSize.Connections[OleDbConnection]"
                       connectionManagerID="Package.ConnectionManagers[MAPS OLE]"
                       connectionManagerRefId="Package.ConnectionManagers[MAPS OLE]"
                       description="The OLE DB runtime connection used to access the database."
@@ -2464,42 +2771,42 @@ FROM [SkuSize]</property>
                   </connections>
                   <outputs>
                     <output
-                      refId="Package\SkuSize\LOAD TO INSKET TEMP\OLE DB Source.Outputs[OLE DB Source Output]"
+                      refId="Package\SkuSize\LOAD TO INSKET TEMP\MAPS - SkuSize.Outputs[OLE DB Source Output]"
                       name="OLE DB Source Output">
                       <outputColumns>
                         <outputColumn
-                          refId="Package\SkuSize\LOAD TO INSKET TEMP\OLE DB Source.Outputs[OLE DB Source Output].Columns[SkuSize]"
+                          refId="Package\SkuSize\LOAD TO INSKET TEMP\MAPS - SkuSize.Outputs[OLE DB Source Output].Columns[SkuSize]"
                           codePage="1252"
                           dataType="str"
                           errorOrTruncationOperation="Conversion"
                           errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\SkuSize\LOAD TO INSKET TEMP\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[SkuSize]"
-                          length="10"
-                          lineageId="Package\SkuSize\LOAD TO INSKET TEMP\OLE DB Source.Outputs[OLE DB Source Output].Columns[SkuSize]"
+                          externalMetadataColumnId="Package\SkuSize\LOAD TO INSKET TEMP\MAPS - SkuSize.Outputs[OLE DB Source Output].ExternalColumns[SkuSize]"
+                          length="50"
+                          lineageId="Package\SkuSize\LOAD TO INSKET TEMP\MAPS - SkuSize.Outputs[OLE DB Source Output].Columns[SkuSize]"
                           name="SkuSize"
-                          truncationRowDisposition="IgnoreFailure" />
+                          truncationRowDisposition="FailComponent" />
                         <outputColumn
-                          refId="Package\SkuSize\LOAD TO INSKET TEMP\OLE DB Source.Outputs[OLE DB Source Output].Columns[CWDCode]"
+                          refId="Package\SkuSize\LOAD TO INSKET TEMP\MAPS - SkuSize.Outputs[OLE DB Source Output].Columns[CWDCode]"
                           codePage="1252"
                           dataType="str"
                           errorOrTruncationOperation="Conversion"
                           errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\SkuSize\LOAD TO INSKET TEMP\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CWDCode]"
+                          externalMetadataColumnId="Package\SkuSize\LOAD TO INSKET TEMP\MAPS - SkuSize.Outputs[OLE DB Source Output].ExternalColumns[CWDCode]"
                           length="4"
-                          lineageId="Package\SkuSize\LOAD TO INSKET TEMP\OLE DB Source.Outputs[OLE DB Source Output].Columns[CWDCode]"
+                          lineageId="Package\SkuSize\LOAD TO INSKET TEMP\MAPS - SkuSize.Outputs[OLE DB Source Output].Columns[CWDCode]"
                           name="CWDCode"
                           truncationRowDisposition="FailComponent" />
                       </outputColumns>
                       <externalMetadataColumns
                         isUsed="True">
                         <externalMetadataColumn
-                          refId="Package\SkuSize\LOAD TO INSKET TEMP\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[SkuSize]"
+                          refId="Package\SkuSize\LOAD TO INSKET TEMP\MAPS - SkuSize.Outputs[OLE DB Source Output].ExternalColumns[SkuSize]"
                           codePage="1252"
                           dataType="str"
                           length="50"
                           name="SkuSize" />
                         <externalMetadataColumn
-                          refId="Package\SkuSize\LOAD TO INSKET TEMP\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CWDCode]"
+                          refId="Package\SkuSize\LOAD TO INSKET TEMP\MAPS - SkuSize.Outputs[OLE DB Source Output].ExternalColumns[CWDCode]"
                           codePage="1252"
                           dataType="str"
                           length="4"
@@ -2507,34 +2814,118 @@ FROM [SkuSize]</property>
                       </externalMetadataColumns>
                     </output>
                     <output
-                      refId="Package\SkuSize\LOAD TO INSKET TEMP\OLE DB Source.Outputs[OLE DB Source Error Output]"
+                      refId="Package\SkuSize\LOAD TO INSKET TEMP\MAPS - SkuSize.Outputs[OLE DB Source Error Output]"
                       isErrorOut="true"
                       name="OLE DB Source Error Output">
                       <outputColumns>
                         <outputColumn
-                          refId="Package\SkuSize\LOAD TO INSKET TEMP\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[SkuSize]"
+                          refId="Package\SkuSize\LOAD TO INSKET TEMP\MAPS - SkuSize.Outputs[OLE DB Source Error Output].Columns[SkuSize]"
                           codePage="1252"
                           dataType="str"
                           length="50"
-                          lineageId="Package\SkuSize\LOAD TO INSKET TEMP\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[SkuSize]"
+                          lineageId="Package\SkuSize\LOAD TO INSKET TEMP\MAPS - SkuSize.Outputs[OLE DB Source Error Output].Columns[SkuSize]"
                           name="SkuSize" />
                         <outputColumn
-                          refId="Package\SkuSize\LOAD TO INSKET TEMP\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CWDCode]"
+                          refId="Package\SkuSize\LOAD TO INSKET TEMP\MAPS - SkuSize.Outputs[OLE DB Source Error Output].Columns[CWDCode]"
                           codePage="1252"
                           dataType="str"
                           length="4"
-                          lineageId="Package\SkuSize\LOAD TO INSKET TEMP\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CWDCode]"
+                          lineageId="Package\SkuSize\LOAD TO INSKET TEMP\MAPS - SkuSize.Outputs[OLE DB Source Error Output].Columns[CWDCode]"
                           name="CWDCode" />
                         <outputColumn
-                          refId="Package\SkuSize\LOAD TO INSKET TEMP\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          refId="Package\SkuSize\LOAD TO INSKET TEMP\MAPS - SkuSize.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
                           dataType="i4"
-                          lineageId="Package\SkuSize\LOAD TO INSKET TEMP\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          lineageId="Package\SkuSize\LOAD TO INSKET TEMP\MAPS - SkuSize.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
                           name="ErrorCode"
                           specialFlags="1" />
                         <outputColumn
-                          refId="Package\SkuSize\LOAD TO INSKET TEMP\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          refId="Package\SkuSize\LOAD TO INSKET TEMP\MAPS - SkuSize.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
                           dataType="i4"
-                          lineageId="Package\SkuSize\LOAD TO INSKET TEMP\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          lineageId="Package\SkuSize\LOAD TO INSKET TEMP\MAPS - SkuSize.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\SkuSize\LOAD TO INSKET TEMP\Truncate SkuSize column to fit CWD database length"
+                  componentClassID="DTSTransform.DerivedColumn.3"
+                  contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+                  name="Truncate SkuSize column to fit CWD database length"
+                  usesDispositions="true">
+                  <inputs>
+                    <input
+                      refId="Package\SkuSize\LOAD TO INSKET TEMP\Truncate SkuSize column to fit CWD database length.Inputs[Derived Column Input]"
+                      description="Input to the Derived Column Transformation"
+                      name="Derived Column Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\SkuSize\LOAD TO INSKET TEMP\Truncate SkuSize column to fit CWD database length.Inputs[Derived Column Input].Columns[SkuSize]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="SkuSize"
+                          lineageId="Package\SkuSize\LOAD TO INSKET TEMP\MAPS - SkuSize.Outputs[OLE DB Source Output].Columns[SkuSize]" />
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\SkuSize\LOAD TO INSKET TEMP\Truncate SkuSize column to fit CWD database length.Outputs[Derived Column Output]"
+                      description="Default Output of the Derived Column Transformation"
+                      exclusionGroup="1"
+                      name="Derived Column Output"
+                      synchronousInputId="Package\SkuSize\LOAD TO INSKET TEMP\Truncate SkuSize column to fit CWD database length.Inputs[Derived Column Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\SkuSize\LOAD TO INSKET TEMP\Truncate SkuSize column to fit CWD database length.Outputs[Derived Column Output].Columns[TruncatedSkuSize]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          length="10"
+                          lineageId="Package\SkuSize\LOAD TO INSKET TEMP\Truncate SkuSize column to fit CWD database length.Outputs[Derived Column Output].Columns[TruncatedSkuSize]"
+                          name="TruncatedSkuSize"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">[SUBSTRING](#{Package\SkuSize\LOAD TO INSKET TEMP\MAPS - SkuSize.Outputs[OLE DB Source Output].Columns[SkuSize]},1,10)</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">SUBSTRING(SkuSize,1,10)</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\SkuSize\LOAD TO INSKET TEMP\Truncate SkuSize column to fit CWD database length.Outputs[Derived Column Error Output]"
+                      description="Error Output of the Derived Column Transformation"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Derived Column Error Output"
+                      synchronousInputId="Package\SkuSize\LOAD TO INSKET TEMP\Truncate SkuSize column to fit CWD database length.Inputs[Derived Column Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\SkuSize\LOAD TO INSKET TEMP\Truncate SkuSize column to fit CWD database length.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\SkuSize\LOAD TO INSKET TEMP\Truncate SkuSize column to fit CWD database length.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\SkuSize\LOAD TO INSKET TEMP\Truncate SkuSize column to fit CWD database length.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\SkuSize\LOAD TO INSKET TEMP\Truncate SkuSize column to fit CWD database length.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
                           name="ErrorColumn"
                           specialFlags="2" />
                       </outputColumns>
@@ -2545,10 +2936,15 @@ FROM [SkuSize]</property>
               </components>
               <paths>
                 <path
+                  refId="Package\SkuSize\LOAD TO INSKET TEMP.Paths[Derived Column Output]"
+                  endId="Package\SkuSize\LOAD TO INSKET TEMP\CWD temp_INSKET.Inputs[OLE DB Destination Input]"
+                  name="Derived Column Output"
+                  startId="Package\SkuSize\LOAD TO INSKET TEMP\Truncate SkuSize column to fit CWD database length.Outputs[Derived Column Output]" />
+                <path
                   refId="Package\SkuSize\LOAD TO INSKET TEMP.Paths[OLE DB Source Output]"
-                  endId="Package\SkuSize\LOAD TO INSKET TEMP\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  endId="Package\SkuSize\LOAD TO INSKET TEMP\Truncate SkuSize column to fit CWD database length.Inputs[Derived Column Input]"
                   name="OLE DB Source Output"
-                  startId="Package\SkuSize\LOAD TO INSKET TEMP\OLE DB Source.Outputs[OLE DB Source Output]" />
+                  startId="Package\SkuSize\LOAD TO INSKET TEMP\MAPS - SkuSize.Outputs[OLE DB Source Output]" />
               </paths>
             </pipeline>
           </DTS:ObjectData>
@@ -2568,11 +2964,11 @@ FROM [SkuSize]</property>
               version="1">
               <components>
                 <component
-                  refId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\OLE DB Destination"
+                  refId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\CWD temp_INSKETX"
                   componentClassID="DTSAdapter.OLEDBDestination.3"
                   contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
                   description="OLE DB Destination"
-                  name="OLE DB Destination"
+                  name="CWD temp_INSKETX"
                   usesDispositions="true"
                   validateExternalMetadata="False"
                   version="4">
@@ -2626,7 +3022,7 @@ FROM [SkuSize]</property>
                   </properties>
                   <connections>
                     <connection
-                      refId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\OLE DB Destination.Connections[OleDbConnection]"
+                      refId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\CWD temp_INSKETX.Connections[OleDbConnection]"
                       connectionManagerID="Package.ConnectionManagers[CWD_OLE]"
                       connectionManagerRefId="Package.ConnectionManagers[CWD_OLE]"
                       description="The OLE DB runtime connection used to access the database."
@@ -2634,39 +3030,39 @@ FROM [SkuSize]</property>
                   </connections>
                   <inputs>
                     <input
-                      refId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                      refId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\CWD temp_INSKETX.Inputs[OLE DB Destination Input]"
                       errorOrTruncationOperation="Insert"
                       errorRowDisposition="FailComponent"
                       hasSideEffects="true"
                       name="OLE DB Destination Input">
                       <inputColumns>
                         <inputColumn
-                          refId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[CWDCode]"
+                          refId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\CWD temp_INSKETX.Inputs[OLE DB Destination Input].Columns[CWDCode]"
                           cachedCodepage="1252"
                           cachedDataType="str"
                           cachedLength="4"
                           cachedName="CWDCode"
-                          externalMetadataColumnId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[SKU_CODE]"
-                          lineageId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\OLE DB Source.Outputs[OLE DB Source Output].Columns[CWDCode]" />
+                          externalMetadataColumnId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\CWD temp_INSKETX.Inputs[OLE DB Destination Input].ExternalColumns[SKU_CODE]"
+                          lineageId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\MAPS SkuDesign.Outputs[OLE DB Source Output].Columns[CWDCode]" />
                         <inputColumn
-                          refId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[SkuSize]"
+                          refId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\CWD temp_INSKETX.Inputs[OLE DB Destination Input].Columns[SkuSize]"
                           cachedCodepage="1252"
                           cachedDataType="str"
                           cachedLength="50"
                           cachedName="SkuSize"
-                          externalMetadataColumnId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[LONG_DESCRIPTION]"
-                          lineageId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\OLE DB Source.Outputs[OLE DB Source Output].Columns[SkuSize]" />
+                          externalMetadataColumnId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\CWD temp_INSKETX.Inputs[OLE DB Destination Input].ExternalColumns[LONG_DESCRIPTION]"
+                          lineageId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\MAPS SkuDesign.Outputs[OLE DB Source Output].Columns[SkuSize]" />
                       </inputColumns>
                       <externalMetadataColumns
                         isUsed="True">
                         <externalMetadataColumn
-                          refId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[LONG_DESCRIPTION]"
+                          refId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\CWD temp_INSKETX.Inputs[OLE DB Destination Input].ExternalColumns[LONG_DESCRIPTION]"
                           codePage="1252"
                           dataType="str"
                           length="50"
                           name="LONG_DESCRIPTION" />
                         <externalMetadataColumn
-                          refId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[SKU_CODE]"
+                          refId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\CWD temp_INSKETX.Inputs[OLE DB Destination Input].ExternalColumns[SKU_CODE]"
                           codePage="1252"
                           dataType="str"
                           length="4"
@@ -2676,22 +3072,22 @@ FROM [SkuSize]</property>
                   </inputs>
                   <outputs>
                     <output
-                      refId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                      refId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\CWD temp_INSKETX.Outputs[OLE DB Destination Error Output]"
                       exclusionGroup="1"
                       isErrorOut="true"
                       name="OLE DB Destination Error Output"
-                      synchronousInputId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                      synchronousInputId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\CWD temp_INSKETX.Inputs[OLE DB Destination Input]">
                       <outputColumns>
                         <outputColumn
-                          refId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          refId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\CWD temp_INSKETX.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
                           dataType="i4"
-                          lineageId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          lineageId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\CWD temp_INSKETX.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
                           name="ErrorCode"
                           specialFlags="1" />
                         <outputColumn
-                          refId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          refId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\CWD temp_INSKETX.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
                           dataType="i4"
-                          lineageId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          lineageId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\CWD temp_INSKETX.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
                           name="ErrorColumn"
                           specialFlags="2" />
                       </outputColumns>
@@ -2700,11 +3096,11 @@ FROM [SkuSize]</property>
                   </outputs>
                 </component>
                 <component
-                  refId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\OLE DB Source"
+                  refId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\MAPS SkuDesign"
                   componentClassID="DTSAdapter.OLEDBSource.3"
                   contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
                   description="OLE DB Source"
-                  name="OLE DB Source"
+                  name="MAPS SkuDesign"
                   usesDispositions="true"
                   version="7">
                   <properties>
@@ -2729,7 +3125,7 @@ FROM [SkuSize]</property>
                     <property
                       dataType="System.String"
                       description="The variable that contains the SQL command to be executed."
-                      name="SqlCommandVariable"></property>
+                      name="SqlCommandVariable">User::Query_Select_SkuSize</property>
                     <property
                       dataType="System.Int32"
                       description="Specifies the column code page to use when code page information is unavailable from the data source."
@@ -2742,7 +3138,7 @@ FROM [SkuSize]</property>
                       dataType="System.Int32"
                       description="Specifies the mode used to access the database."
                       name="AccessMode"
-                      typeConverter="AccessMode">2</property>
+                      typeConverter="AccessMode">3</property>
                     <property
                       dataType="System.String"
                       description="The mappings between the parameters in the SQL command and variables."
@@ -2750,7 +3146,7 @@ FROM [SkuSize]</property>
                   </properties>
                   <connections>
                     <connection
-                      refId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\OLE DB Source.Connections[OleDbConnection]"
+                      refId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\MAPS SkuDesign.Connections[OleDbConnection]"
                       connectionManagerID="Package.ConnectionManagers[MAPS OLE]"
                       connectionManagerRefId="Package.ConnectionManagers[MAPS OLE]"
                       description="The OLE DB runtime connection used to access the database."
@@ -2758,42 +3154,42 @@ FROM [SkuSize]</property>
                   </connections>
                   <outputs>
                     <output
-                      refId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\OLE DB Source.Outputs[OLE DB Source Output]"
+                      refId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\MAPS SkuDesign.Outputs[OLE DB Source Output]"
                       name="OLE DB Source Output">
                       <outputColumns>
                         <outputColumn
-                          refId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\OLE DB Source.Outputs[OLE DB Source Output].Columns[SkuSize]"
+                          refId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\MAPS SkuDesign.Outputs[OLE DB Source Output].Columns[SkuSize]"
                           codePage="1252"
                           dataType="str"
                           errorOrTruncationOperation="Conversion"
                           errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[SkuSize]"
+                          externalMetadataColumnId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\MAPS SkuDesign.Outputs[OLE DB Source Output].ExternalColumns[SkuSize]"
                           length="50"
-                          lineageId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\OLE DB Source.Outputs[OLE DB Source Output].Columns[SkuSize]"
+                          lineageId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\MAPS SkuDesign.Outputs[OLE DB Source Output].Columns[SkuSize]"
                           name="SkuSize"
                           truncationRowDisposition="FailComponent" />
                         <outputColumn
-                          refId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\OLE DB Source.Outputs[OLE DB Source Output].Columns[CWDCode]"
+                          refId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\MAPS SkuDesign.Outputs[OLE DB Source Output].Columns[CWDCode]"
                           codePage="1252"
                           dataType="str"
                           errorOrTruncationOperation="Conversion"
                           errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CWDCode]"
+                          externalMetadataColumnId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\MAPS SkuDesign.Outputs[OLE DB Source Output].ExternalColumns[CWDCode]"
                           length="4"
-                          lineageId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\OLE DB Source.Outputs[OLE DB Source Output].Columns[CWDCode]"
+                          lineageId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\MAPS SkuDesign.Outputs[OLE DB Source Output].Columns[CWDCode]"
                           name="CWDCode"
                           truncationRowDisposition="FailComponent" />
                       </outputColumns>
                       <externalMetadataColumns
                         isUsed="True">
                         <externalMetadataColumn
-                          refId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[SkuSize]"
+                          refId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\MAPS SkuDesign.Outputs[OLE DB Source Output].ExternalColumns[SkuSize]"
                           codePage="1252"
                           dataType="str"
                           length="50"
                           name="SkuSize" />
                         <externalMetadataColumn
-                          refId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CWDCode]"
+                          refId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\MAPS SkuDesign.Outputs[OLE DB Source Output].ExternalColumns[CWDCode]"
                           codePage="1252"
                           dataType="str"
                           length="4"
@@ -2801,34 +3197,34 @@ FROM [SkuSize]</property>
                       </externalMetadataColumns>
                     </output>
                     <output
-                      refId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\OLE DB Source.Outputs[OLE DB Source Error Output]"
+                      refId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\MAPS SkuDesign.Outputs[OLE DB Source Error Output]"
                       isErrorOut="true"
                       name="OLE DB Source Error Output">
                       <outputColumns>
                         <outputColumn
-                          refId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[SkuSize]"
+                          refId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\MAPS SkuDesign.Outputs[OLE DB Source Error Output].Columns[SkuSize]"
                           codePage="1252"
                           dataType="str"
                           length="50"
-                          lineageId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[SkuSize]"
+                          lineageId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\MAPS SkuDesign.Outputs[OLE DB Source Error Output].Columns[SkuSize]"
                           name="SkuSize" />
                         <outputColumn
-                          refId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CWDCode]"
+                          refId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\MAPS SkuDesign.Outputs[OLE DB Source Error Output].Columns[CWDCode]"
                           codePage="1252"
                           dataType="str"
                           length="4"
-                          lineageId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CWDCode]"
+                          lineageId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\MAPS SkuDesign.Outputs[OLE DB Source Error Output].Columns[CWDCode]"
                           name="CWDCode" />
                         <outputColumn
-                          refId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          refId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\MAPS SkuDesign.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
                           dataType="i4"
-                          lineageId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          lineageId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\MAPS SkuDesign.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
                           name="ErrorCode"
                           specialFlags="1" />
                         <outputColumn
-                          refId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          refId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\MAPS SkuDesign.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
                           dataType="i4"
-                          lineageId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          lineageId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\MAPS SkuDesign.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
                           name="ErrorColumn"
                           specialFlags="2" />
                       </outputColumns>
@@ -2840,9 +3236,9 @@ FROM [SkuSize]</property>
               <paths>
                 <path
                   refId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE.Paths[OLE DB Source Output]"
-                  endId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  endId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\CWD temp_INSKETX.Inputs[OLE DB Destination Input]"
                   name="OLE DB Source Output"
-                  startId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\OLE DB Source.Outputs[OLE DB Source Output]" />
+                  startId="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\MAPS SkuDesign.Outputs[OLE DB Source Output]" />
               </paths>
             </pipeline>
           </DTS:ObjectData>
@@ -3332,7 +3728,7 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
         <NodeLayout
           Size="263,42"
           Id="Package\SkuDesign\DROP TEMP INSKEOX (SkuDesign)"
-          TopLeft="324.95,33.5" />
+          TopLeft="324.95,32.5" />
         <NodeLayout
           Size="272,42"
           Id="Package\SkuDesign\DROP TEMP INSKEOX ON SUCCESS"
@@ -3443,18 +3839,18 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\SkuDesign.PrecedenceConstraints[Constraint 12]"
-          TopLeft="456.45,75.5">
+          TopLeft="456.45,74.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,32"
+              EndConnector="0,33"
               Start="0,0"
-              End="0,24.5">
+              End="0,25.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,24.5" />
+                    End="0,25.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -3532,14 +3928,14 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
         <ContainerLayout
           HeaderHeight="43"
           IsExpanded="True"
-          PanelSize="602,363"
-          Size="602,406"
+          PanelSize="602,402"
+          Size="602,446"
           Id="Package\SkuDesign"
           TopLeft="80.5,676" />
         <NodeLayout
           Size="200,42"
           Id="Package\SkuSize\CREATE TEMP INSKET"
-          TopLeft="36.5,97.3125" />
+          TopLeft="69.5,97.3125" />
         <NodeLayout
           Size="207,42"
           Id="Package\SkuSize\CREATE TEMP INSKETX"
@@ -3547,11 +3943,11 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
         <NodeLayout
           Size="238,42"
           Id="Package\SkuSize\DROP TEMP INSKET (SkuSize)"
-          TopLeft="36.5,26.4999999999998" />
+          TopLeft="50.5,26.4999999999998" />
         <NodeLayout
           Size="300,42"
           Id="Package\SkuSize\DROP TEMP INSKET TABLE ON SUCCESS"
-          TopLeft="5.5,309.749999999999" />
+          TopLeft="19.5,309.749999999999" />
         <NodeLayout
           Size="245,42"
           Id="Package\SkuSize\DROP TEMP INSKETX (SkuSize)"
@@ -3563,7 +3959,7 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
         <NodeLayout
           Size="203,42"
           Id="Package\SkuSize\LOAD TO INSKET TEMP"
-          TopLeft="53,168.124999999999" />
+          TopLeft="68,168.124999999999" />
         <NodeLayout
           Size="248,42"
           Id="Package\SkuSize\LOAD TO TEMP INSKETX TABLE"
@@ -3571,37 +3967,25 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
         <NodeLayout
           Size="195,42"
           Id="Package\SkuSize\UPSERT INTO INSKET"
-          TopLeft="58,238.937499999999" />
+          TopLeft="72,238.937499999999" />
         <NodeLayout
           Size="203,42"
           Id="Package\SkuSize\UPSERT INTO INSKETX"
           TopLeft="397.7,238.937499999999" />
         <EdgeLayout
           Id="Package\SkuSize.PrecedenceConstraints[Constraint]"
-          TopLeft="155.5,68.4999999999998">
+          TopLeft="169.5,68.4999999999998">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-19,28.8125000000002"
+              EndConnector="0,28.8125000000002"
               Start="0,0"
-              End="-19,21.3125000000002">
+              End="0,21.3125000000002">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,10.4062500000001" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,10.4062500000001"
-                    Point2="0,14.4062500000001"
-                    Point3="-4,14.4062500000001" />
-                  <mssgle:LineSegment
-                    End="-15,14.4062500000001" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-15,14.4062500000001"
-                    Point2="-19,14.4062500000001"
-                    Point3="-19,18.4062500000001" />
-                  <mssgle:LineSegment
-                    End="-19,21.3125000000002" />
+                    End="0,21.3125000000002" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -3612,7 +3996,7 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\SkuSize.PrecedenceConstraints[Constraint 1]"
-          TopLeft="155,210.124999999999">
+          TopLeft="169.5,210.124999999999">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -3656,7 +4040,7 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\SkuSize.PrecedenceConstraints[Constraint 2]"
-          TopLeft="155.5,280.937499999999">
+          TopLeft="169.5,280.937499999999">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -3722,30 +4106,18 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\SkuSize.PrecedenceConstraints[Constraint 6]"
-          TopLeft="136.5,139.3125">
+          TopLeft="169.5,139.3125">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="18,28.812499999999"
+              EndConnector="0,28.812499999999"
               Start="0,0"
-              End="18,21.312499999999">
+              End="0,21.312499999999">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,10.4062499999995" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,10.4062499999995"
-                    Point2="0,14.4062499999995"
-                    Point3="4,14.4062499999995" />
-                  <mssgle:LineSegment
-                    End="14,14.4062499999995" />
-                  <mssgle:CubicBezierSegment
-                    Point1="14,14.4062499999995"
-                    Point2="18,14.4062499999995"
-                    Point3="18,18.4062499999995" />
-                  <mssgle:LineSegment
-                    End="18,21.312499999999" />
+                    End="0,21.312499999999" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -3779,43 +4151,43 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
         <ContainerLayout
           HeaderHeight="43"
           IsExpanded="True"
-          PanelSize="659,407"
-          Size="659,450"
+          PanelSize="659,361"
+          Size="659,404"
           Id="Package\SkuSize"
-          TopLeft="50,207" />
+          TopLeft="50.3,207" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint]"
-          TopLeft="709,412.5">
+          TopLeft="709.3,409">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="179,146.833333333333"
+              EndConnector="178.7,150.333333333333"
               Start="0,0"
-              End="171.5,146.833333333333">
+              End="171.2,150.333333333333">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="102.971043434848,0" />
+                    End="102.791762356465,0" />
                   <mssgle:CubicBezierSegment
-                    Point1="102.971043434848,0"
-                    Point2="106.971043434848,0"
-                    Point3="106.971043434848,4" />
+                    Point1="102.791762356465,0"
+                    Point2="106.791762356465,0"
+                    Point3="106.791762356465,4" />
                   <mssgle:LineSegment
-                    End="106.971043434848,142.833333333333" />
+                    End="106.791762356465,146.333333333333" />
                   <mssgle:CubicBezierSegment
-                    Point1="106.971043434848,142.833333333333"
-                    Point2="106.971043434848,146.833333333333"
-                    Point3="110.971043434848,146.833333333333" />
+                    Point1="106.791762356465,146.333333333333"
+                    Point2="106.791762356465,150.333333333333"
+                    Point3="110.791762356465,150.333333333333" />
                   <mssgle:LineSegment
-                    End="171.5,146.833333333333" />
+                    End="171.2,150.333333333333" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="81.6665903098477,-17.609375,50.60890625,11.609375"
+              BoundingBox="81.4873092314654,-17.609375,50.60890625,11.609375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
@@ -3825,9 +4197,9 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-205.5,189.333333333333"
+              EndConnector="-205.5,209.333333333333"
               Start="0,0"
-              End="-198,189.333333333333">
+              End="-198,209.333333333333">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
@@ -3838,13 +4210,13 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
                     Point2="-82.692461308038,0"
                     Point3="-82.692461308038,4" />
                   <mssgle:LineSegment
-                    End="-82.692461308038,185.333333333333" />
+                    End="-82.692461308038,205.333333333333" />
                   <mssgle:CubicBezierSegment
-                    Point1="-82.692461308038,185.333333333333"
-                    Point2="-82.692461308038,189.333333333333"
-                    Point3="-86.692461308038,189.333333333333" />
+                    Point1="-82.692461308038,205.333333333333"
+                    Point2="-82.692461308038,209.333333333333"
+                    Point3="-86.692461308038,209.333333333333" />
                   <mssgle:LineSegment
-                    End="-198,189.333333333333" />
+                    End="-198,209.333333333333" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -3886,44 +4258,75 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
     design-time-name="Package\SkuColor\LOAD TO INSKEW TEMP">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
-          Size="157,42"
-          Id="Package\SkuColor\LOAD TO INSKEW TEMP\OLE DB Source"
-          TopLeft="301,270" />
+          Size="158,42"
+          Id="Package\SkuColor\LOAD TO INSKEW TEMP\MAPS SkuColor"
+          TopLeft="291.166666666667,269" />
         <NodeLayout
-          Size="177,42"
-          Id="Package\SkuColor\LOAD TO INSKEW TEMP\OLE DB Destination"
-          TopLeft="287,368" />
+          Size="169,42"
+          Id="Package\SkuColor\LOAD TO INSKEW TEMP\CWD Inskew table"
+          TopLeft="285.666666666667,431" />
+        <AnnotationLayout
+          Text="Create a temporary table to hold the information from MAPS.&#xA;&#xA;This data will get compared to what is in CWD in the next step.&#xA;New rows will be added to CWD and any changes made in MAPS will be made in CWD.&#xA;&#xA;Some data columns in MAPS are longer than they are in CWD, so we truncate those columns down in a derived column."
+          ParentId="Package\SkuColor\LOAD TO INSKEW TEMP"
+          FontInfo="{assembly:Null}"
+          Size="662,120"
+          Id="6ef67c57-cd5c-4bdf-9709-dfb56d31a025"
+          TopLeft="561,259" />
+        <NodeLayout
+          Size="362,42"
+          Id="Package\SkuColor\LOAD TO INSKEW TEMP\Truncate SkuColor colum from 50 to 10 to fit in CWD table"
+          TopLeft="189.166666666667,354" />
         <EdgeLayout
           Id="Package\SkuColor\LOAD TO INSKEW TEMP.Paths[OLE DB Source Output]"
-          TopLeft="377.5,312">
+          TopLeft="370.166666666667,311">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,56"
+              EndConnector="0,43"
               Start="0,0"
-              End="0,48.5">
+              End="0,35.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,48.5" />
+                    End="0,35.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\SkuColor\LOAD TO INSKEW TEMP.Paths[Derived Column Output]"
+          TopLeft="370.166666666667,396">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,35"
+              Start="0,0"
+              End="0,27.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,27.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
-    design-time-name="Package\SkuColor\LOAD TO INSKEW TEMP\OLE DB Destination">
+    design-time-name="Package\SkuColor\LOAD TO INSKEW TEMP\CWD Inskew table">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -3931,7 +4334,7 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\SkuColor\LOAD TO INSKEW TEMP\OLE DB Source">
+    design-time-name="Package\SkuColor\LOAD TO INSKEW TEMP\MAPS SkuColor">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -3942,44 +4345,42 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
     design-time-name="Package\SkuColor\LOAD TO INSKEWX TEMP">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="157,42"
-          Id="Package\SkuColor\LOAD TO INSKEWX TEMP\OLE DB Source"
-          TopLeft="301,270" />
+          Size="158,42"
+          Id="Package\SkuColor\LOAD TO INSKEWX TEMP\MAPS SkuColor"
+          TopLeft="301,269" />
         <NodeLayout
-          Size="177,42"
-          Id="Package\SkuColor\LOAD TO INSKEWX TEMP\OLE DB Destination"
+          Size="189,42"
+          Id="Package\SkuColor\LOAD TO INSKEWX TEMP\CWD temp_INSKEWX"
           TopLeft="287,368" />
         <EdgeLayout
           Id="Package\SkuColor\LOAD TO INSKEWX TEMP.Paths[OLE DB Source Output]"
-          TopLeft="377.5,312">
+          TopLeft="380.75,311">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,56"
+              EndConnector="0,57"
               Start="0,0"
-              End="0,48.5">
+              End="0,49.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,48.5" />
+                    End="0,49.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
-    design-time-name="Package\SkuColor\LOAD TO INSKEWX TEMP\OLE DB Destination">
+    design-time-name="Package\SkuColor\LOAD TO INSKEWX TEMP\CWD temp_INSKEWX">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -3987,7 +4388,7 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\SkuColor\LOAD TO INSKEWX TEMP\OLE DB Source">
+    design-time-name="Package\SkuColor\LOAD TO INSKEWX TEMP\MAPS SkuColor">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -4010,44 +4411,82 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
     design-time-name="Package\SkuDesign\LOAD TO INSKEO TEMP">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="157,42"
-          Id="Package\SkuDesign\LOAD TO INSKEO TEMP\OLE DB Source"
-          TopLeft="301,270" />
+          Size="166,42"
+          Id="Package\SkuDesign\LOAD TO INSKEO TEMP\MAPS SkuDesign"
+          TopLeft="390.833333333333,270" />
         <NodeLayout
-          Size="177,42"
-          Id="Package\SkuDesign\LOAD TO INSKEO TEMP\OLE DB Destination"
-          TopLeft="287,368" />
+          Size="150,42"
+          Id="Package\SkuDesign\LOAD TO INSKEO TEMP\CWD INSKEO"
+          TopLeft="398.833333333333,437" />
+        <NodeLayout
+          Size="235,42"
+          Id="Package\SkuDesign\LOAD TO INSKEO TEMP\Truncate SkuDesign down to 10"
+          TopLeft="356.333333333333,353.5" />
         <EdgeLayout
           Id="Package\SkuDesign\LOAD TO INSKEO TEMP.Paths[OLE DB Source Output]"
-          TopLeft="377.5,312">
+          TopLeft="473.833333333333,312">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,56"
+              EndConnector="0,41.5"
               Start="0,0"
-              End="0,48.5">
+              End="0,34">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,48.5" />
+                    End="0,34" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
+        <EdgeLayout
+          Id="Package\SkuDesign\LOAD TO INSKEO TEMP.Paths[Derived Column Output]"
+          TopLeft="473.833333333333,395.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,41.5"
+              Start="0,0"
+              End="0,34">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,34" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <AnnotationLayout
+          Text="Create a temporary table to hold the information from MAPS.&#xA;&#xA;This data will get compared to what is in CWD in the next step.&#xA;New rows will be added to CWD and any changes made in MAPS will be made in CWD.&#xA;&#xA;Some data columns in MAPS are longer than they are in CWD, so we truncate those columns down in a derived column."
+          ParentId="Package\SkuDesign\LOAD TO INSKEO TEMP"
+          FontInfo="{assembly:Null}"
+          Size="662,120"
+          Id="2d0d6327-694f-4f29-bdaf-010c079b9d5a"
+          TopLeft="621,349" />
+        <AnnotationLayout
+          Text="MAPS SkuDesign table contains some invalid characters.&#xD;&#xA;Those are removed with a replace.&#xD;&#xA;In this situation a double apostrophe is replaced with quotes."
+          ParentId="Package\SkuDesign\LOAD TO INSKEO TEMP"
+          FontInfo="{assembly:Null}"
+          Size="352,72"
+          Id="cb7b4608-cc0d-43f3-b5c0-0628e373d5ec"
+          TopLeft="567,253" />
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
-    design-time-name="Package\SkuDesign\LOAD TO INSKEO TEMP\OLE DB Destination">
+    design-time-name="Package\SkuDesign\LOAD TO INSKEO TEMP\CWD INSKEO">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -4055,7 +4494,7 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\SkuDesign\LOAD TO INSKEO TEMP\OLE DB Source">
+    design-time-name="Package\SkuDesign\LOAD TO INSKEO TEMP\MAPS SkuDesign">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -4066,44 +4505,75 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
     design-time-name="Package\SkuDesign\LOAD TO INSKEOX TEMP">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="157,42"
-          Id="Package\SkuDesign\LOAD TO INSKEOX TEMP\OLE DB Source"
-          TopLeft="301,270" />
+          Size="166,42"
+          Id="Package\SkuDesign\LOAD TO INSKEOX TEMP\MAPS SkuDesign"
+          TopLeft="328.5,239" />
         <NodeLayout
-          Size="177,42"
-          Id="Package\SkuDesign\LOAD TO INSKEOX TEMP\OLE DB Destination"
-          TopLeft="287,368" />
+          Size="188,42"
+          Id="Package\SkuDesign\LOAD TO INSKEOX TEMP\CWD temp_INSKEOX"
+          TopLeft="317.5,402" />
+        <NodeLayout
+          Size="297,42"
+          Id="Package\SkuDesign\LOAD TO INSKEOX TEMP\Truncate SkuDesign column from 8000 to 50"
+          TopLeft="263,318" />
         <EdgeLayout
           Id="Package\SkuDesign\LOAD TO INSKEOX TEMP.Paths[OLE DB Source Output]"
-          TopLeft="377.5,312">
+          TopLeft="411.5,281">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,56"
+              EndConnector="0,37"
               Start="0,0"
-              End="0,48.5">
+              End="0,29.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,48.5" />
+                    End="0,29.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
+        <EdgeLayout
+          Id="Package\SkuDesign\LOAD TO INSKEOX TEMP.Paths[Derived Column Output]"
+          TopLeft="411.5,360">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,42"
+              Start="0,0"
+              End="0,34.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,34.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <AnnotationLayout
+          Text="Unlike the other tables in this package, the SkuDesign column length is 8000.&#xD;&#xA;This column also contains that can not be loaded into CWD. Those values are replaced in a SQL query.&#xD;&#xA;&#xD;&#xA;The column gets truncated to 50 as a derived column then loaded into the temp table."
+          ParentId="Package\SkuDesign\LOAD TO INSKEOX TEMP"
+          FontInfo="{assembly:Null}"
+          Size="568,88"
+          Id="b59f62af-396d-414e-8bda-a8ad3e6b74c5"
+          TopLeft="588,235" />
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
-    design-time-name="Package\SkuDesign\LOAD TO INSKEOX TEMP\OLE DB Destination">
+    design-time-name="Package\SkuDesign\LOAD TO INSKEOX TEMP\CWD temp_INSKEOX">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -4111,7 +4581,7 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\SkuDesign\LOAD TO INSKEOX TEMP\OLE DB Source">
+    design-time-name="Package\SkuDesign\LOAD TO INSKEOX TEMP\MAPS SkuDesign">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -4134,29 +4604,55 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
     design-time-name="Package\SkuSize\LOAD TO INSKET TEMP">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="157,42"
-          Id="Package\SkuSize\LOAD TO INSKET TEMP\OLE DB Source"
-          TopLeft="301,274.5" />
+          Size="160,42"
+          Id="Package\SkuSize\LOAD TO INSKET TEMP\MAPS - SkuSize"
+          TopLeft="255.333333333333,181.5" />
         <NodeLayout
-          Size="177,42"
-          Id="Package\SkuSize\LOAD TO INSKET TEMP\OLE DB Destination"
-          TopLeft="287,368" />
+          Size="178,42"
+          Id="Package\SkuSize\LOAD TO INSKET TEMP\CWD temp_INSKET"
+          TopLeft="246.333333333333,364" />
+        <NodeLayout
+          Size="338,42"
+          Id="Package\SkuSize\LOAD TO INSKET TEMP\Truncate SkuSize column to fit CWD database length"
+          TopLeft="166.333333333333,271" />
         <EdgeLayout
           Id="Package\SkuSize\LOAD TO INSKET TEMP.Paths[OLE DB Source Output]"
-          TopLeft="377.5,316.5">
+          TopLeft="335.333333333333,223.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,51.5"
+              EndConnector="0,47.5"
               Start="0,0"
-              End="0,44">
+              End="0,40">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,44" />
+                    End="0,40" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\SkuSize\LOAD TO INSKET TEMP.Paths[Derived Column Output]"
+          TopLeft="335.333333333333,313">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,51"
+              Start="0,0"
+              End="0,43.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,43.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -4166,17 +4662,17 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <AnnotationLayout
-          Text="Truncate the skusize column to 10 characters&#xA;"
+          Text="Create a temporary table to hold the information from MAPS.&#xD;&#xA;&#xD;&#xA;This data will get compared to what is in CWD in the next step.&#xD;&#xA;New rows will be added to CWD and any changes made in MAPS will be made in CWD.&#xD;&#xA;&#xD;&#xA;Some data columns in MAPS are longer than they are in CWD, so we truncate those columns down in a derived column."
           ParentId="Package\SkuSize\LOAD TO INSKET TEMP"
           FontInfo="{assembly:Null}"
-          Size="200,72"
-          Id="61a1b2e6-45fb-4902-b95d-2337f662176a"
-          TopLeft="465,259.5" />
+          Size="662,120"
+          Id="421c6c57-e753-4f00-8c9e-e0a7bb920d7a"
+          TopLeft="670,203" />
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
-    design-time-name="Package\SkuSize\LOAD TO INSKET TEMP\OLE DB Destination">
+    design-time-name="Package\SkuSize\LOAD TO INSKET TEMP\CWD temp_INSKET">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -4184,7 +4680,7 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\SkuSize\LOAD TO INSKET TEMP\OLE DB Source">
+    design-time-name="Package\SkuSize\LOAD TO INSKET TEMP\MAPS - SkuSize">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -4197,16 +4693,16 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
       <GraphLayout
         Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="157,42"
-          Id="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\OLE DB Source"
+          Size="166,42"
+          Id="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\MAPS SkuDesign"
           TopLeft="301,270" />
         <NodeLayout
-          Size="177,42"
-          Id="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\OLE DB Destination"
+          Size="186,42"
+          Id="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\CWD temp_INSKETX"
           TopLeft="287,368" />
         <EdgeLayout
           Id="Package\SkuSize\LOAD TO TEMP INSKETX TABLE.Paths[OLE DB Source Output]"
-          TopLeft="377.5,312">
+          TopLeft="382,312">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -4230,7 +4726,7 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
-    design-time-name="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\OLE DB Destination">
+    design-time-name="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\CWD temp_INSKETX">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -4238,7 +4734,7 @@ Error description: " +  @[System::ErrorDescription]</DTS:PropertyExpression>
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\OLE DB Source">
+    design-time-name="Package\SkuSize\LOAD TO TEMP INSKETX TABLE\MAPS SkuDesign">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
